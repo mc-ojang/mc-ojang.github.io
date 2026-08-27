@@ -6,87 +6,151 @@
   <title>我的世界ojang的论坛</title>
   <style>
     *{margin:0;padding:0;box-sizing:border-box;font-family:system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;-webkit-tap-highlight-color:transparent}
-    body{background:#fff;min-height:100vh;display:flex;flex-direction:column}
-    .topbar{background:#fff;padding:14px 20px;display:flex;align-items:center;border-bottom:1px solid #e3e6ea;position:sticky;top:0;z-index:10;animation:slideDown .4s cubic-bezier(0.15,0.85,0.35,1) both}
-    .topbar-title{font-size:18px;font-weight:500;color:#1e1e1e;letter-spacing:.3px}
+    body{background:#fff;min-height:100vh;display:flex;flex-direction:column;transition:background .25s,color .25s}
+    body.dark{background:#1e1e1e;color:#e8eaed}
+    body.dark .topbar{background:#2d2d2d;border-bottom-color:#3c3c3c}
+    body.dark .topbar-title{color:#e8eaed}
+    body.dark .menu-btn{color:#8ab4f8}
+    body.dark .sub{color:#bdc1c6}
+    body.dark .info-table{background:#2d2d2d;box-shadow:0 4px 12px rgba(0,0,0,0.3)}
+    body.dark .info-table tr{border-bottom-color:#3c3c3c}
+    body.dark .info-table .label{color:#bdc1c6;background:#343434}
+    body.dark .info-table .value{background:#2d2d2d;color:#e8eaed}
+    body.dark .drawer{background:#2d2d2d;border-left-color:#3c3c3c}
+    body.dark .drawer-header{color:#e8eaed;border-bottom-color:#3c3c3c}
+    body.dark .drawer-item{color:#e8eaed}
+    body.dark .drawer-item:active{background:#3c3c3c}
+    body.dark .drawer-close{color:#bdc1c6}
+    body.dark .modal{background:#2d2d2d}
+    body.dark .modal-title{color:#e8eaed}
+    body.dark .modal-body{color:#bdc1c6}
+    body.dark .modal-btn{background:#8ab4f8;color:#1e1e1e}
+    body.dark .overlay{background:rgba(0,0,0,0.5)}
+    body.dark .btn-blue{background:#8ab4f8;color:#1e1e1e;box-shadow:0 4px 8px rgba(138,180,248,0.2)}
+    body.dark .btn-blue:active{box-shadow:0 2px 4px rgba(138,180,248,0.1)}
+    body.dark .modal-overlay{background:rgba(0,0,0,0.5)}
+    .topbar{background:#fff;padding:14px 20px;display:flex;align-items:center;border-bottom:1px solid #e3e6ea;position:sticky;top:0;z-index:10;animation:slideDown .4s cubic-bezier(0.15,0.85,0.35,1) both;transition:background .25s,border-color .25s}
+    .topbar-title{font-size:18px;font-weight:500;color:#1e1e1e;letter-spacing:.3px;transition:color .25s}
     .spacer{flex:1}
-    .menu-btn{font-size:28px;font-weight:300;color:#1a73e8;background:0;border:0;padding:0 4px;cursor:pointer;line-height:1;transition:transform .12s ease}
+    .menu-btn{font-size:28px;font-weight:300;color:#1a73e8;background:0;border:0;padding:0 4px;cursor:pointer;line-height:1;transition:transform .12s ease,color .25s}
     .menu-btn:active{transform:scale(.78)}
     .content{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:24px 20px 32px;text-align:center}
-    .big{font-size:clamp(3.2rem,20vw,5.2rem);font-weight:400;color:#1e1e1e;margin-bottom:12px;animation:fadePop .5s cubic-bezier(0.15,0.85,0.35,1) .05s both}
-    .sub{font-size:clamp(1rem,4.2vw,1.4rem);color:#3c4043;line-height:1.7;margin-bottom:18px;animation:fadePop .5s cubic-bezier(0.15,0.85,0.35,1) .12s both}
-    .btn-blue{display:inline-block;background:#1a73e8;color:#fff;padding:12px 32px;border-radius:32px;font-size:clamp(1rem,4vw,1.2rem);font-weight:500;border:0;cursor:pointer;margin-bottom:24px;transition:transform .12s ease,box-shadow .2s;box-shadow:0 4px 8px rgba(26,115,232,0.12);animation:fadePop .5s cubic-bezier(0.15,0.85,0.35,1) .2s both}
+    .big{font-size:clamp(3.2rem,20vw,5.2rem);font-weight:400;color:#1e1e1e;margin-bottom:12px;animation:fadePop .5s cubic-bezier(0.15,0.85,0.35,1) .05s both;transition:color .25s}
+    body.dark .big{color:#e8eaed}
+    .sub{font-size:clamp(1rem,4.2vw,1.4rem);color:#3c4043;line-height:1.7;margin-bottom:18px;animation:fadePop .5s cubic-bezier(0.15,0.85,0.35,1) .12s both;transition:color .25s}
+    .btn-blue{display:inline-block;background:#1a73e8;color:#fff;padding:12px 32px;border-radius:32px;font-size:clamp(1rem,4vw,1.2rem);font-weight:500;border:0;cursor:pointer;margin-bottom:24px;transition:transform .12s ease,box-shadow .2s,background .25s,color .25s;box-shadow:0 4px 8px rgba(26,115,232,0.12);animation:fadePop .5s cubic-bezier(0.15,0.85,0.35,1) .2s both}
     .btn-blue:active{transform:scale(.92);box-shadow:0 2px 4px rgba(26,115,232,0.06)}
-    .info-table{width:100%;max-width:340px;border-collapse:collapse;background:#f8fafc;border-radius:20px;overflow:hidden;box-shadow:0 4px 12px rgba(0,0,0,0.02);animation:fadePop .5s cubic-bezier(0.15,0.85,0.35,1) .28s both}
-    .info-table tr{border-bottom:1px solid #eef1f4;transition:background .15s}
+    .info-table{width:100%;max-width:340px;border-collapse:collapse;background:#f8fafc;border-radius:20px;overflow:hidden;box-shadow:0 4px 12px rgba(0,0,0,0.02);animation:fadePop .5s cubic-bezier(0.15,0.85,0.35,1) .28s both;transition:background .25s,box-shadow .25s}
+    .info-table tr{border-bottom:1px solid #eef1f4;transition:background .15s,border-color .25s}
     .info-table tr:last-child{border-bottom:0}
-    .info-table td{padding:12px 16px;font-size:15px;color:#1e1e1e;text-align:left}
-    .info-table .label{font-weight:500;color:#5f6368;width:38%;background:#f5f7fa}
-    .info-table .value{background:#fff}
+    .info-table td{padding:12px 16px;font-size:15px;color:#1e1e1e;text-align:left;transition:color .25s,background .25s}
+    .info-table .label{font-weight:500;color:#5f6368;width:38%;background:#f5f7fa;transition:color .25s,background .25s}
+    .info-table .value{background:#fff;transition:background .25s,color .25s}
     .overlay{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.18);visibility:hidden;opacity:0;transition:opacity .25s ease,visibility 0s .25s;z-index:99}
     .overlay.open{visibility:visible;opacity:1;transition:opacity .25s ease}
-    .drawer{position:fixed;top:0;right:-300px;width:280px;max-width:78%;height:100%;background:#fff;box-shadow:-8px 0 30px rgba(0,0,0,0.04);transition:right .3s cubic-bezier(0.2,0,0,1);z-index:100;padding:24px 20px;display:flex;flex-direction:column;border-left:1px solid #eef1f4}
+    .drawer{position:fixed;top:0;right:-300px;width:280px;max-width:78%;height:100%;background:#fff;box-shadow:-8px 0 30px rgba(0,0,0,0.04);transition:right .3s cubic-bezier(0.2,0,0,1),background .25s,border-color .25s;z-index:100;padding:24px 20px;display:flex;flex-direction:column;border-left:1px solid #eef1f4}
     .drawer.open{right:0}
-    .drawer-header{font-size:20px;font-weight:500;color:#1e1e1e;padding-bottom:16px;border-bottom:1px solid #eef1f4;margin-bottom:20px;letter-spacing:.5px}
-    .drawer-item{display:block;padding:14px 10px;font-size:17px;font-weight:400;color:#1e1e1e;border-radius:12px;margin-bottom:4px;background:0;border:0;width:100%;text-align:left;cursor:pointer;transition:background .12s,transform .12s}
+    .drawer-header{font-size:20px;font-weight:500;color:#1e1e1e;padding-bottom:16px;border-bottom:1px solid #eef1f4;margin-bottom:20px;letter-spacing:.5px;transition:color .25s,border-color .25s}
+    .drawer-item{display:block;padding:14px 10px;font-size:17px;font-weight:400;color:#1e1e1e;border-radius:12px;margin-bottom:4px;background:0;border:0;width:100%;text-align:left;cursor:pointer;transition:background .12s,transform .12s,color .25s}
     .drawer-item:active{background:#e8f0fe;transform:scale(.94)}
-    .drawer-close{background:0;border:0;font-size:26px;color:#5f6368;align-self:flex-end;padding:4px 8px;margin-bottom:10px;cursor:pointer;transition:transform .12s}
+    .drawer-close{background:0;border:0;font-size:26px;color:#5f6368;align-self:flex-end;padding:4px 8px;margin-bottom:10px;cursor:pointer;transition:transform .12s,color .25s}
     .drawer-close:active{transform:scale(.8)}
-    .modal-overlay{position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.2);z-index:200;display:flex;align-items:center;justify-content:center;padding:20px;pointer-events:none;opacity:0;transition:opacity .25s ease}
+    .modal-overlay{position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.2);z-index:200;display:flex;align-items:center;justify-content:center;padding:20px;pointer-events:none;opacity:0;transition:opacity .25s ease,background .25s}
     .modal-overlay.open{pointer-events:auto;opacity:1}
     .modal-overlay.open .modal{transform:scale(1) translateY(0);opacity:1}
     .modal-overlay.closing{pointer-events:auto;opacity:1}
     .modal-overlay.closing .modal{transform:scale(.92) translateY(6px);opacity:0;transition:transform .2s cubic-bezier(0.2,0,0,1),opacity .2s}
-    .modal{background:#fff;border-radius:32px;max-width:340px;width:100%;padding:28px 24px 24px;box-shadow:0 20px 50px rgba(0,0,0,0.06);transform:scale(.92) translateY(12px);opacity:0;transition:transform .3s cubic-bezier(0.15,0.85,0.35,1),opacity .25s}
-    .modal-title{font-size:20px;font-weight:500;color:#1e1e1e;margin-bottom:10px}
-    .modal-body{font-size:15px;color:#3c4043;line-height:1.7;margin-bottom:22px}
-    .modal-btn{background:#1a73e8;color:#fff;border:0;padding:10px 28px;border-radius:30px;font-size:15px;font-weight:500;cursor:pointer;float:right;transition:transform .12s,box-shadow .2s;box-shadow:0 4px 8px rgba(26,115,232,0.12)}
+    .modal{background:#fff;border-radius:32px;max-width:340px;width:100%;padding:28px 24px 24px;box-shadow:0 20px 50px rgba(0,0,0,0.06);transform:scale(.92) translateY(12px);opacity:0;transition:transform .3s cubic-bezier(0.15,0.85,0.35,1),opacity .25s,background .25s}
+    .modal-title{font-size:20px;font-weight:500;color:#1e1e1e;margin-bottom:10px;transition:color .25s}
+    .modal-body{font-size:15px;color:#3c4043;line-height:1.7;margin-bottom:22px;transition:color .25s}
+    .modal-btn{background:#1a73e8;color:#fff;border:0;padding:10px 28px;border-radius:30px;font-size:15px;font-weight:500;cursor:pointer;float:right;transition:transform .12s,box-shadow .2s,background .25s,color .25s;box-shadow:0 4px 8px rgba(26,115,232,0.12)}
     .modal-btn:active{transform:scale(.88);box-shadow:0 2px 4px rgba(26,115,232,0.05)}
+    .settings-group{margin-bottom:14px;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+    .settings-group label{font-size:15px;font-weight:450;color:#3c4043;transition:color .25s}
+    body.dark .settings-group label{color:#bdc1c6}
+    .settings-select{padding:6px 10px;border-radius:20px;border:1px solid #dadce0;background:#fff;font-size:14px;color:#1e1e1e;outline:none;transition:background .25s,border-color .25s,color .25s;min-width:100px}
+    body.dark .settings-select{background:#3c3c3c;border-color:#555;color:#e8eaed}
+    .settings-toggle{display:flex;gap:8px;align-items:center}
+    .toggle-track{width:44px;height:24px;border-radius:14px;background:#dadce0;cursor:pointer;position:relative;transition:background .25s;flex-shrink:0}
+    body.dark .toggle-track{background:#555}
+    .toggle-track.active{background:#1a73e8}
+    body.dark .toggle-track.active{background:#8ab4f8}
+    .toggle-thumb{width:20px;height:20px;border-radius:50%;background:#fff;position:absolute;top:2px;left:2px;transition:transform .25s;box-shadow:0 1px 4px rgba(0,0,0,0.2)}
+    .toggle-track.active .toggle-thumb{transform:translateX(20px)}
+    .modal-body .settings-group:last-child{margin-bottom:0}
     @keyframes slideDown{0%{opacity:0;transform:translateY(-12px)}100%{opacity:1;transform:translateY(0)}}
     @keyframes fadePop{0%{opacity:0;transform:scale(.96) translateY(10px)}100%{opacity:1;transform:scale(1) translateY(0)}}
-    @media (hover:hover){.info-table tr:hover{background:#f2f5f9}}
+    @media (hover:hover){.info-table tr:hover{background:#f2f5f9}body.dark .info-table tr:hover{background:#3c3c3c}}
+    @media (min-width:640px){.content{padding:40px 32px 48px}.info-table{max-width:480px}.info-table td{padding:14px 24px;font-size:16px}.drawer{width:320px;max-width:70%;right:-340px}}
+    @media (min-width:1024px){.topbar{padding:18px 40px}.topbar-title{font-size:22px}.menu-btn{font-size:32px}.content{padding:60px 40px 64px}.big{font-size:5.6rem;margin-bottom:16px}.sub{font-size:1.5rem;margin-bottom:24px}.btn-blue{padding:14px 44px;font-size:1.25rem;margin-bottom:32px}.info-table{max-width:560px}.info-table td{padding:16px 28px;font-size:17px}.drawer{width:360px;max-width:60%;right:-380px;padding:32px 28px}.drawer-header{font-size:24px}.drawer-item{font-size:19px;padding:16px 14px}.modal{max-width:420px;padding:32px 28px 28px}.modal-title{font-size:24px}.modal-body{font-size:17px}}
   </style>
 </head>
 <body>
   <div class="topbar">
-    <span class="topbar-title">我的世界ojang的论坛</span>
+    <span class="topbar-title" data-key="title">我的世界ojang的论坛</span>
     <div class="spacer"></div>
     <button class="menu-btn" id="menuToggle">☰</button>
   </div>
   <div class="content">
-    <div class="big">欢迎!</div>
-    <div class="sub">欢迎来到我的世界ojang的论坛</div>
-    <button class="btn-blue" id="biliBtnMain">我的B站</button>
+    <div class="big" data-key="welcome">欢迎!</div>
+    <div class="sub" data-key="sub">欢迎来到我的世界ojang的论坛</div>
+    <button class="btn-blue" id="biliBtnMain" data-key="bilibili">我的B站</button>
     <table class="info-table">
-      <tr><td class="label">年龄</td><td class="value">11周岁</td></tr>
-      <tr><td class="label">生日</td><td class="value">05.27</td></tr>
-      <tr><td class="label">职业</td><td class="value">学生</td></tr>
-      <tr><td class="label">家乡</td><td class="value">山东临沂</td></tr>
-      <tr><td class="label">现住址</td><td class="value">山东烟台</td></tr>
+      <tr><td class="label" data-key="age_label">年龄</td><td class="value" data-key="age_value">11周岁</td></tr>
+      <tr><td class="label" data-key="birth_label">生日</td><td class="value" data-key="birth_value">05.27</td></tr>
+      <tr><td class="label" data-key="job_label">职业</td><td class="value" data-key="job_value">学生</td></tr>
+      <tr><td class="label" data-key="hometown_label">家乡</td><td class="value" data-key="hometown_value">山东临沂</td></tr>
+      <tr><td class="label" data-key="address_label">现住址</td><td class="value" data-key="address_value">山东烟台</td></tr>
     </table>
   </div>
   <div class="overlay" id="overlay"></div>
   <div class="drawer" id="drawer">
     <button class="drawer-close" id="drawerClose">✕</button>
-    <div class="drawer-header">菜单</div>
-    <button class="drawer-item" id="introBtn">简介</button>
-    <button class="drawer-item" id="downloadBtn">下载ojang pe</button>
-    <button class="drawer-item" id="biliBtn">我的B站</button>
+    <div class="drawer-header" data-key="menu">菜单</div>
+    <button class="drawer-item" id="introBtn" data-key="intro">简介</button>
+    <button class="drawer-item" id="downloadBtn" data-key="download">下载ojang pe</button>
+    <button class="drawer-item" id="biliBtn" data-key="bilibili">我的B站</button>
+    <button class="drawer-item" id="settingsBtn" data-key="settings">设置</button>
   </div>
   <div class="modal-overlay" id="modalOverlay">
     <div class="modal">
-      <div class="modal-title">简介</div>
-      <div class="modal-body">这是简介</div>
-      <button class="modal-btn" id="modalClose">知道了</button>
+      <div class="modal-title" id="modalTitle" data-key="intro">简介</div>
+      <div class="modal-body" id="modalBody" data-key="intro_text">这是简介</div>
+      <button class="modal-btn" id="modalClose" data-key="ok">知道了</button>
+    </div>
+  </div>
+  <div class="modal-overlay" id="settingsOverlay">
+    <div class="modal" style="max-width:380px;">
+      <div class="modal-title" data-key="settings">设置</div>
+      <div class="modal-body">
+        <div class="settings-group">
+          <label data-key="language">语言</label>
+          <select class="settings-select" id="langSelect"><option value="zh">中文</option><option value="en">English</option></select>
+        </div>
+        <div class="settings-group">
+          <label data-key="dark_mode">深色模式</label>
+          <div class="settings-toggle">
+            <div class="toggle-track" id="darkToggle"><div class="toggle-thumb"></div></div>
+          </div>
+        </div>
+      </div>
+      <button class="modal-btn" id="settingsClose" data-key="ok">知道了</button>
     </div>
   </div>
   <script>
     (function(){
-      const menuToggle=document.getElementById('menuToggle'),overlay=document.getElementById('overlay'),drawer=document.getElementById('drawer'),drawerClose=document.getElementById('drawerClose'),introBtn=document.getElementById('introBtn'),downloadBtn=document.getElementById('downloadBtn'),biliBtn=document.getElementById('biliBtn'),biliBtnMain=document.getElementById('biliBtnMain'),modalOverlay=document.getElementById('modalOverlay'),modalClose=document.getElementById('modalClose');let closing=!1;
+      const menuToggle=document.getElementById('menuToggle'),overlay=document.getElementById('overlay'),drawer=document.getElementById('drawer'),drawerClose=document.getElementById('drawerClose'),introBtn=document.getElementById('introBtn'),downloadBtn=document.getElementById('downloadBtn'),biliBtn=document.getElementById('biliBtn'),biliBtnMain=document.getElementById('biliBtnMain'),modalOverlay=document.getElementById('modalOverlay'),modalClose=document.getElementById('modalClose'),settingsBtn=document.getElementById('settingsBtn'),settingsOverlay=document.getElementById('settingsOverlay'),settingsClose=document.getElementById('settingsClose'),langSelect=document.getElementById('langSelect'),darkToggle=document.getElementById('darkToggle');
+      let closing=!1,settingsClosing=!1;
+      const dict={zh:{title:'我的世界ojang的论坛',welcome:'欢迎!',sub:'欢迎来到我的世界ojang的论坛',bilibili:'我的B站',age_label:'年龄',age_value:'11周岁',birth_label:'生日',birth_value:'05.27',job_label:'职业',job_value:'学生',hometown_label:'家乡',hometown_value:'山东临沂',address_label:'现住址',address_value:'山东烟台',menu:'菜单',intro:'简介',download:'下载ojang pe',settings:'设置',intro_text:'这是简介',ok:'知道了',language:'语言',dark_mode:'深色模式'},en:{title:'Ojang Minecraft Forum',welcome:'Welcome!',sub:'Welcome to Ojang Minecraft Forum',bilibili:'My Bilibili',age_label:'Age',age_value:'11 years old',birth_label:'Birthday',birth_value:'05.27',job_label:'Occupation',job_value:'Student',hometown_label:'Hometown',hometown_value:'Linyi, Shandong',address_label:'Current Address',address_value:'Yantai, Shandong',menu:'Menu',intro:'About',download:'Download Ojang PE',settings:'Settings',intro_text:'This is the about info.',ok:'Got it',language:'Language',dark_mode:'Dark Mode'}};
+      function t(k){const lang=localStorage.getItem('lang')||'zh';return (dict[lang]&&dict[lang][k])||dict.zh[k]||k}
+      function applyLang(){const lang=localStorage.getItem('lang')||'zh';langSelect.value=lang;document.querySelectorAll('[data-key]').forEach(el=>{const key=el.dataset.key;const val=t(key);if(val)el.textContent=val});}
+      function applyTheme(){const dark=localStorage.getItem('dark')==='true';document.body.classList.toggle('dark',dark);darkToggle.classList.toggle('active',dark);}
       function openDrawer(){overlay.classList.add('open');drawer.classList.add('open')}
       function closeDrawer(){overlay.classList.remove('open');drawer.classList.remove('open')}
       function openModal(){modalOverlay.classList.remove('closing');modalOverlay.classList.add('open');closing=!1}
       function closeModal(){if(closing)return;closing=!0;modalOverlay.classList.add('closing');modalOverlay.classList.remove('open');setTimeout(()=>{modalOverlay.classList.remove('closing');closing=!1},220)}
+      function openSettings(){settingsOverlay.classList.remove('closing');settingsOverlay.classList.add('open');settingsClosing=!1}
+      function closeSettings(){if(settingsClosing)return;settingsClosing=!0;settingsOverlay.classList.add('closing');settingsOverlay.classList.remove('open');setTimeout(()=>{settingsOverlay.classList.remove('closing');settingsClosing=!1},220)}
       menuToggle.onclick=function(e){e.preventDefault();openDrawer()};
       overlay.onclick=function(e){e.preventDefault();closeDrawer()};
       drawerClose.onclick=function(e){e.preventDefault();closeDrawer()};
@@ -96,8 +160,14 @@
       downloadBtn.onclick=function(e){e.preventDefault();window.open('https://share.feijipan.com/s/Pw8OwB3N','_blank');closeDrawer()};
       biliBtn.onclick=function(e){e.preventDefault();window.open('https://b23.tv/DCOLBfG','_blank');closeDrawer()};
       biliBtnMain.onclick=function(e){e.preventDefault();window.open('https://b23.tv/DCOLBfG','_blank')};
-      document.onkeydown=function(e){if(e.key==='Escape'){closeDrawer();closeModal()}};
+      settingsBtn.onclick=function(e){e.preventDefault();closeDrawer();setTimeout(openSettings,120)};
+      settingsClose.onclick=function(e){e.preventDefault();closeSettings()};
+      settingsOverlay.onclick=function(e){if(e.target===settingsOverlay){e.preventDefault();closeSettings()}};
+      langSelect.onchange=function(){localStorage.setItem('lang',this.value);applyLang();applyTheme()};
+      darkToggle.onclick=function(){const curr=localStorage.getItem('dark')==='true';localStorage.setItem('dark',String(!curr));applyTheme()};
+      document.onkeydown=function(e){if(e.key==='Escape'){closeDrawer();closeModal();closeSettings()}};
+      applyLang();applyTheme();
     })();
   </script>
 </body>
-</html>
+  </html>
