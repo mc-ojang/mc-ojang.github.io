@@ -111,6 +111,7 @@
     <button class="drawer-item" id="downloadBtn" data-key="download">下载ojang pe</button>
     <button class="drawer-item" id="biliBtn" data-key="bilibili">我的B站</button>
     <button class="drawer-item" id="settingsBtn" data-key="settings">设置</button>
+    <button class="drawer-item" id="callBtn" data-key="call">拨号</button>
   </div>
   <div class="modal-overlay" id="modalOverlay">
     <div class="modal">
@@ -139,9 +140,9 @@
   </div>
   <script>
     (function(){
-      const menuToggle=document.getElementById('menuToggle'),overlay=document.getElementById('overlay'),drawer=document.getElementById('drawer'),drawerClose=document.getElementById('drawerClose'),introBtn=document.getElementById('introBtn'),downloadBtn=document.getElementById('downloadBtn'),biliBtn=document.getElementById('biliBtn'),biliBtnMain=document.getElementById('biliBtnMain'),modalOverlay=document.getElementById('modalOverlay'),modalClose=document.getElementById('modalClose'),settingsBtn=document.getElementById('settingsBtn'),settingsOverlay=document.getElementById('settingsOverlay'),settingsClose=document.getElementById('settingsClose'),langSelect=document.getElementById('langSelect'),darkToggle=document.getElementById('darkToggle');
+      const menuToggle=document.getElementById('menuToggle'),overlay=document.getElementById('overlay'),drawer=document.getElementById('drawer'),drawerClose=document.getElementById('drawerClose'),introBtn=document.getElementById('introBtn'),downloadBtn=document.getElementById('downloadBtn'),biliBtn=document.getElementById('biliBtn'),biliBtnMain=document.getElementById('biliBtnMain'),modalOverlay=document.getElementById('modalOverlay'),modalClose=document.getElementById('modalClose'),settingsBtn=document.getElementById('settingsBtn'),settingsOverlay=document.getElementById('settingsOverlay'),settingsClose=document.getElementById('settingsClose'),langSelect=document.getElementById('langSelect'),darkToggle=document.getElementById('darkToggle'),callBtn=document.getElementById('callBtn');
       let closing=!1,settingsClosing=!1;
-      const dict={zh:{title:'我的世界ojang的论坛',welcome:'欢迎!',sub:'欢迎来到我的世界ojang的论坛',bilibili:'我的B站',age_label:'年龄',age_value:'11周岁',birth_label:'生日',birth_value:'05.27',job_label:'职业',job_value:'学生',hometown_label:'家乡',hometown_value:'山东临沂',address_label:'现住址',address_value:'山东烟台',menu:'菜单',intro:'简介',download:'下载ojang pe',settings:'设置',intro_text:'这是简介',ok:'知道了',language:'语言',dark_mode:'深色模式'},en:{title:'Ojang Minecraft Forum',welcome:'Welcome!',sub:'Welcome to Ojang Minecraft Forum',bilibili:'My Bilibili',age_label:'Age',age_value:'11 years old',birth_label:'Birthday',birth_value:'05.27',job_label:'Occupation',job_value:'Student',hometown_label:'Hometown',hometown_value:'Linyi, Shandong',address_label:'Current Address',address_value:'Yantai, Shandong',menu:'Menu',intro:'About',download:'Download Ojang PE',settings:'Settings',intro_text:'This is the about info.',ok:'Got it',language:'Language',dark_mode:'Dark Mode'}};
+      const dict={zh:{title:'我的世界ojang的论坛',welcome:'欢迎!',sub:'欢迎来到我的世界ojang的论坛',bilibili:'我的B站',age_label:'年龄',age_value:'11周岁',birth_label:'生日',birth_value:'05.27',job_label:'职业',job_value:'学生',hometown_label:'家乡',hometown_value:'山东临沂',address_label:'现住址',address_value:'山东烟台',menu:'菜单',intro:'简介',download:'下载ojang pe',settings:'设置',call:'拨号',intro_text:'这是简介',ok:'知道了',language:'语言',dark_mode:'深色模式'},en:{title:'Ojang Minecraft Forum',welcome:'Welcome!',sub:'Welcome to Ojang Minecraft Forum',bilibili:'My Bilibili',age_label:'Age',age_value:'11 years old',birth_label:'Birthday',birth_value:'05.27',job_label:'Occupation',job_value:'Student',hometown_label:'Hometown',hometown_value:'Linyi, Shandong',address_label:'Current Address',address_value:'Yantai, Shandong',menu:'Menu',intro:'About',download:'Download Ojang PE',settings:'Settings',call:'Call',intro_text:'This is the about info.',ok:'Got it',language:'Language',dark_mode:'Dark Mode'}};
       function t(k){const lang=localStorage.getItem('lang')||'zh';return (dict[lang]&&dict[lang][k])||dict.zh[k]||k}
       function applyLang(){const lang=localStorage.getItem('lang')||'zh';langSelect.value=lang;document.querySelectorAll('[data-key]').forEach(el=>{const key=el.dataset.key;const val=t(key);if(val)el.textContent=val});}
       function applyTheme(){const dark=localStorage.getItem('dark')==='true';document.body.classList.toggle('dark',dark);darkToggle.classList.toggle('active',dark);}
@@ -166,6 +167,8 @@
       langSelect.onchange=function(){localStorage.setItem('lang',this.value);applyLang();applyTheme()};
       darkToggle.onclick=function(){const curr=localStorage.getItem('dark')==='true';localStorage.setItem('dark',String(!curr));applyTheme()};
       document.onkeydown=function(e){if(e.key==='Escape'){closeDrawer();closeModal();closeSettings()}};
+      // 拨号按钮点击事件
+      callBtn.onclick=function(e){e.preventDefault();window.open('https://mc-ojang.github.io/call.html','_blank');closeDrawer()};
       applyLang();applyTheme();
     })();
   </script>
