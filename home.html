@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+  <title>我的世界ojang的论坛</title>
+  <style>
+    *{margin:0;padding:0;box-sizing:border-box;font-family:system-ui,-apple-space,'Segoe UI',Roboto,sans-serif}
+    body{background:#ffffff;min-height:100vh;display:flex;flex-direction:column}
+    .topbar{background:#ffffff;padding:14px 20px;display:flex;align-items:center;border-bottom:1px solid #e3e6ea;position:sticky;top:0;z-index:10}
+    .topbar-title{font-size:18px;font-weight:500;color:#1e1e1e;letter-spacing:0.2px}
+    .spacer{flex:1}
+    .menu-btn{font-size:28px;font-weight:300;color:#1a73e8;background:none;border:none;padding:0 0 0 8px;cursor:pointer;line-height:1;transition:opacity 0.15s}
+    .menu-btn:active{opacity:0.4}
+    .content{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:24px 20px;text-align:center}
+    .big{font-size:clamp(3.2rem,20vw,5.2rem);font-weight:400;color:#1e1e1e;margin-bottom:12px}
+    .sub{font-size:clamp(1rem,4.2vw,1.4rem);color:#3c4043;line-height:1.7;margin-bottom:18px}
+    .btn-blue{display:inline-block;background:#1a73e8;color:#ffffff;padding:12px 32px;border-radius:24px;font-size:clamp(1rem,4vw,1.2rem);font-weight:500;text-decoration:none;box-shadow:0 2px 6px rgba(26,115,232,0.25);transition:box-shadow 0.2s,transform 0.1s;border:none;cursor:pointer}
+    .btn-blue:active{box-shadow:0 2px 10px rgba(26,115,232,0.35);transform:scale(0.97)}
+    .overlay{position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.3);visibility:hidden;opacity:0;transition:opacity 0.25s ease;z-index:99}
+    .overlay.open{visibility:visible;opacity:1}
+    .drawer{position:fixed;top:0;right:-300px;width:280px;max-width:78%;height:100%;background:#ffffff;box-shadow:-4px 0 20px rgba(0,0,0,0.08);transition:right 0.28s cubic-bezier(0.2,0.0,0,1.0);z-index:100;padding:24px 20px;display:flex;flex-direction:column;border-left:1px solid #e8ecf0}
+    .drawer.open{right:0}
+    .drawer-header{font-size:20px;font-weight:500;color:#1e1e1e;padding-bottom:16px;border-bottom:1px solid #eef1f4;margin-bottom:20px}
+    .drawer-item{display:block;padding:14px 6px;font-size:17px;font-weight:400;color:#1e1e1e;border-radius:8px;margin-bottom:4px;transition:background 0.12s;background:none;border:none;width:100%;text-align:left;cursor:pointer}
+    .drawer-item:active{background:#e8f0fe}
+    .drawer-close{background:none;border:none;font-size:26px;color:#5f6368;align-self:flex-end;padding:4px 8px;margin-bottom:8px;cursor:pointer}
+    .drawer-close:active{opacity:0.5}
+  </style>
+</head>
+<body>
+  <div class="topbar">
+    <span class="topbar-title">我的世界ojang的论坛</span>
+    <div class="spacer"></div>
+    <button class="menu-btn" id="menuToggle" aria-label="菜单">☰</button>
+  </div>
+  <div class="content">
+    <div class="big">欢迎!</div>
+    <div class="sub">欢迎来到我的世界ojang的论坛</div>
+    <a class="btn-blue" href="https://b23.tv/DCOLBfG" target="_blank">我的B站</a>
+  </div>
+  <div class="overlay" id="overlay"></div>
+  <div class="drawer" id="drawer">
+    <button class="drawer-close" id="drawerClose">✕</button>
+    <div class="drawer-header">菜单</div>
+    <button class="drawer-item" id="downloadBtn">下载ojang pe最新版</button>
+    <button class="drawer-item" id="biliBtn">ojang B站</button>
+  </div>
+  <script>
+    (function(){
+      const menuToggle = document.getElementById('menuToggle');
+      const overlay = document.getElementById('overlay');
+      const drawer = document.getElementById('drawer');
+      const drawerClose = document.getElementById('drawerClose');
+      const downloadBtn = document.getElementById('downloadBtn');
+      const biliBtn = document.getElementById('biliBtn');
+      function openDrawer(){ overlay.classList.add('open'); drawer.classList.add('open'); }
+      function closeDrawer(){ overlay.classList.remove('open'); drawer.classList.remove('open'); }
+      menuToggle.addEventListener('click', openDrawer);
+      overlay.addEventListener('click', closeDrawer);
+      drawerClose.addEventListener('click', closeDrawer);
+      downloadBtn.addEventListener('click', function(e){
+        e.stopPropagation();
+        window.open('https://share.feijipan.com/s/Pw8OwB3N', '_blank');
+        closeDrawer();
+      });
+      biliBtn.addEventListener('click', function(e){
+        e.stopPropagation();
+        window.open('https://b23.tv/DCOLBfG', '_blank');
+        closeDrawer();
+      });
+      document.addEventListener('keydown', function(e){ if(e.key === 'Escape') closeDrawer(); });
+    })();
+  </script>
+</body>
+</html>
