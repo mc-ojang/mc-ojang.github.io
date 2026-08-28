@@ -6,7 +6,7 @@
   <title>我的世界ojang的论坛</title>
   <style>
     *{margin:0;padding:0;box-sizing:border-box;font-family:system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;-webkit-tap-highlight-color:transparent}
-    body{background:#fff;min-height:100vh;display:flex;flex-direction:column;transition:background .25s,color .25s}
+    body{background:#fff;min-height:100vh;display:flex;flex-direction:column;transition:background .25s,color .25s;overflow:hidden;height:100vh}
     body.dark{background:#1e1e1e;color:#e8eaed}
     body.dark .topbar{background:#2d2d2d;border-bottom-color:#3c3c3c}
     body.dark .topbar-title{color:#e8eaed}
@@ -29,18 +29,34 @@
     body.dark .btn-blue{background:#8ab4f8;color:#1e1e1e;box-shadow:0 4px 8px rgba(138,180,248,0.2)}
     body.dark .btn-blue:active{box-shadow:0 2px 4px rgba(138,180,248,0.1)}
     body.dark .modal-overlay{background:rgba(0,0,0,0.5)}
-    .topbar{background:#fff;padding:14px 20px;display:flex;align-items:center;border-bottom:1px solid #e3e6ea;position:sticky;top:0;z-index:10;animation:slideDown .4s cubic-bezier(0.15,0.85,0.35,1) both;transition:background .25s,border-color .25s}
+    body.dark .download-item{background:#2d2d2d;border-bottom-color:#3c3c3c}
+    body.dark .download-item .app-name{color:#e8eaed}
+    body.dark .dl-btn{background:#8ab4f8;color:#1e1e1e}
+    body.dark .dl-btn:active{background:#6fa0e0}
+    body.transparent .topbar{background:rgba(255,255,255,0.25);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);border-bottom-color:rgba(227,230,234,0.25)}
+    body.transparent.dark .topbar{background:rgba(45,45,45,0.25);border-bottom-color:rgba(60,60,60,0.25)}
+    body.transparent .drawer{background:rgba(255,255,255,0.45);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-left-color:rgba(238,241,244,0.2)}
+    body.transparent.dark .drawer{background:rgba(45,45,45,0.45);border-left-color:rgba(60,60,60,0.2)}
+    body.transparent .modal{background:rgba(255,255,255,0.6);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)}
+    body.transparent.dark .modal{background:rgba(45,45,45,0.6)}
+    body.transparent .info-table{background:rgba(248,250,252,0.5);backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px)}
+    body.transparent.dark .info-table{background:rgba(45,45,45,0.5)}
+    body.transparent .info-table .label{background:rgba(245,247,250,0.4)}
+    body.transparent.dark .info-table .label{background:rgba(52,52,52,0.4)}
+    body.transparent .info-table .value{background:rgba(255,255,255,0.3)}
+    body.transparent.dark .info-table .value{background:rgba(45,45,45,0.3)}
+    body.transparent .download-item{background:rgba(248,250,252,0.5);backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);border-bottom-color:rgba(238,241,244,0.2)}
+    body.transparent.dark .download-item{background:rgba(45,45,45,0.5);border-bottom-color:rgba(60,60,60,0.2)}
+    .topbar{background:#fff;padding:14px 20px;display:flex;align-items:center;border-bottom:1px solid #e3e6ea;position:sticky;top:0;z-index:10;animation:slideDown .4s cubic-bezier(0.15,0.85,0.35,1) both;transition:background .25s,border-color .25s,backdrop-filter .25s;flex-shrink:0}
     .topbar-title{font-size:18px;font-weight:500;color:#1e1e1e;letter-spacing:.3px;transition:color .25s}
     .spacer{flex:1}
     .menu-btn{font-size:28px;font-weight:300;color:#1a73e8;background:0;border:0;padding:0 4px;cursor:pointer;line-height:1;transition:transform .12s ease,color .25s}
     .menu-btn:active{transform:scale(.78)}
-    .content{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:24px 20px 32px;text-align:center}
-    .big{font-size:clamp(3.2rem,20vw,5.2rem);font-weight:400;color:#1e1e1e;margin-bottom:12px;animation:fadePop .5s cubic-bezier(0.15,0.85,0.35,1) .05s both;transition:color .25s}
+    .content{flex:1;display:flex;flex-direction:column;align-items:center;padding:16px 20px 20px;text-align:center;overflow-y:auto;overflow-x:hidden;height:100%}
+    .big{font-size:clamp(3.2rem,20vw,5.2rem);font-weight:400;color:#1e1e1e;margin-bottom:8px;animation:fadePop .5s cubic-bezier(0.15,0.85,0.35,1) .05s both;transition:color .25s}
     body.dark .big{color:#e8eaed}
-    .sub{font-size:clamp(1rem,4.2vw,1.4rem);color:#3c4043;line-height:1.7;margin-bottom:18px;animation:fadePop .5s cubic-bezier(0.15,0.85,0.35,1) .12s both;transition:color .25s}
-    .btn-blue{display:inline-block;background:#1a73e8;color:#fff;padding:12px 32px;border-radius:32px;font-size:clamp(1rem,4vw,1.2rem);font-weight:500;border:0;cursor:pointer;margin-bottom:24px;transition:transform .12s ease,box-shadow .2s,background .25s,color .25s;box-shadow:0 4px 8px rgba(26,115,232,0.12);animation:fadePop .5s cubic-bezier(0.15,0.85,0.35,1) .2s both}
-    .btn-blue:active{transform:scale(.92);box-shadow:0 2px 4px rgba(26,115,232,0.06)}
-    .info-table{width:100%;max-width:340px;border-collapse:collapse;background:#f8fafc;border-radius:20px;overflow:hidden;box-shadow:0 4px 12px rgba(0,0,0,0.02);animation:fadePop .5s cubic-bezier(0.15,0.85,0.35,1) .28s both;transition:background .25s,box-shadow .25s}
+    .sub{font-size:clamp(1rem,4.2vw,1.4rem);color:#3c4043;line-height:1.7;margin-bottom:14px;animation:fadePop .5s cubic-bezier(0.15,0.85,0.35,1) .12s both;transition:color .25s}
+    .info-table{width:100%;max-width:340px;border-collapse:collapse;background:#f8fafc;border-radius:20px;overflow:hidden;box-shadow:0 4px 12px rgba(0,0,0,0.02);animation:fadePop .5s cubic-bezier(0.15,0.85,0.35,1) .28s both;transition:background .25s,box-shadow .25s,backdrop-filter .25s}
     .info-table tr{border-bottom:1px solid #eef1f4;transition:background .15s,border-color .25s}
     .info-table tr:last-child{border-bottom:0}
     .info-table td{padding:12px 16px;font-size:15px;color:#1e1e1e;text-align:left;transition:color .25s,background .25s}
@@ -48,7 +64,7 @@
     .info-table .value{background:#fff;transition:background .25s,color .25s}
     .overlay{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.18);visibility:hidden;opacity:0;transition:opacity .25s ease,visibility 0s .25s;z-index:99}
     .overlay.open{visibility:visible;opacity:1;transition:opacity .25s ease}
-    .drawer{position:fixed;top:0;right:-300px;width:280px;max-width:78%;height:100%;background:#fff;box-shadow:-8px 0 30px rgba(0,0,0,0.04);transition:right .3s cubic-bezier(0.2,0,0,1),background .25s,border-color .25s;z-index:100;padding:24px 20px;display:flex;flex-direction:column;border-left:1px solid #eef1f4}
+    .drawer{position:fixed;top:0;right:-300px;width:280px;max-width:78%;height:100%;background:#fff;box-shadow:-8px 0 30px rgba(0,0,0,0.04);transition:right .3s cubic-bezier(0.2,0,0,1),background .25s,border-color .25s,backdrop-filter .25s;z-index:100;padding:24px 20px;display:flex;flex-direction:column;border-left:1px solid #eef1f4}
     .drawer.open{right:0}
     .drawer-header{font-size:20px;font-weight:500;color:#1e1e1e;padding-bottom:16px;border-bottom:1px solid #eef1f4;margin-bottom:20px;letter-spacing:.5px;transition:color .25s,border-color .25s}
     .drawer-item{display:block;padding:14px 10px;font-size:17px;font-weight:400;color:#1e1e1e;border-radius:12px;margin-bottom:4px;background:0;border:0;width:100%;text-align:left;cursor:pointer;transition:background .12s,transform .12s,color .25s}
@@ -60,7 +76,7 @@
     .modal-overlay.open .modal{transform:scale(1) translateY(0);opacity:1}
     .modal-overlay.closing{pointer-events:auto;opacity:1}
     .modal-overlay.closing .modal{transform:scale(.92) translateY(6px);opacity:0;transition:transform .2s cubic-bezier(0.2,0,0,1),opacity .2s}
-    .modal{background:#fff;border-radius:32px;max-width:340px;width:100%;padding:28px 24px 24px;box-shadow:0 20px 50px rgba(0,0,0,0.06);transform:scale(.92) translateY(12px);opacity:0;transition:transform .3s cubic-bezier(0.15,0.85,0.35,1),opacity .25s,background .25s}
+    .modal{background:#fff;border-radius:32px;max-width:340px;width:100%;padding:28px 24px 24px;box-shadow:0 20px 50px rgba(0,0,0,0.06);transform:scale(.92) translateY(12px);opacity:0;transition:transform .3s cubic-bezier(0.15,0.85,0.35,1),opacity .25s,background .25s,backdrop-filter .25s}
     .modal-title{font-size:20px;font-weight:500;color:#1e1e1e;margin-bottom:10px;transition:color .25s}
     .modal-body{font-size:15px;color:#3c4043;line-height:1.7;margin-bottom:22px;transition:color .25s}
     .modal-btn{background:#1a73e8;color:#fff;border:0;padding:10px 28px;border-radius:30px;font-size:15px;font-weight:500;cursor:pointer;float:right;transition:transform .12s,box-shadow .2s,background .25s,color .25s;box-shadow:0 4px 8px rgba(26,115,232,0.12)}
@@ -78,14 +94,27 @@
     .toggle-thumb{width:20px;height:20px;border-radius:50%;background:#fff;position:absolute;top:2px;left:2px;transition:transform .25s;box-shadow:0 1px 4px rgba(0,0,0,0.2)}
     .toggle-track.active .toggle-thumb{transform:translateX(20px)}
     .modal-body .settings-group:last-child{margin-bottom:0}
+    .download-section{width:100%;max-width:380px;margin-top:12px;animation:fadePop .5s cubic-bezier(0.15,0.85,0.35,1) .32s both}
+    .download-item{display:flex;align-items:center;justify-content:space-between;padding:12px 16px;background:#f8fafc;border-radius:16px;margin-bottom:10px;border-bottom:1px solid #eef1f4;transition:background .25s,border-color .25s,backdrop-filter .25s}
+    .download-item .app-info{text-align:left;flex:1;min-width:0}
+    .download-item .app-name{font-size:15px;font-weight:500;color:#1e1e1e;transition:color .25s}
+    .dl-btn{background:#1a73e8;color:#fff;border:0;padding:6px 16px;border-radius:24px;font-size:13px;font-weight:500;cursor:pointer;transition:transform .12s,background .25s,color .25s;white-space:nowrap;margin-left:12px;flex-shrink:0}
+    .dl-btn:active{transform:scale(.88)}
+    .action-row{display:flex;flex-wrap:wrap;justify-content:center;gap:12px;margin:14px 0 10px;width:100%;max-width:380px;animation:fadePop .5s cubic-bezier(0.15,0.85,0.35,1) .34s both}
+    .action-btn{background:#1a73e8;color:#fff;border:0;padding:10px 28px;border-radius:32px;font-size:15px;font-weight:500;cursor:pointer;transition:transform .12s,box-shadow .2s,background .25s,color .25s;box-shadow:0 4px 8px rgba(26,115,232,0.12);flex:1;min-width:120px}
+    .action-btn:active{transform:scale(.92);box-shadow:0 2px 4px rgba(26,115,232,0.06)}
+    body.dark .action-btn{background:#8ab4f8;color:#1e1e1e}
+    .footer-img{margin:8px 0 8px;width:100%;max-width:380px;animation:fadePop .5s cubic-bezier(0.15,0.85,0.35,1) .38s both}
+    .footer-img img{width:100%;height:auto;display:block;border-radius:16px}
     @keyframes slideDown{0%{opacity:0;transform:translateY(-12px)}100%{opacity:1;transform:translateY(0)}}
     @keyframes fadePop{0%{opacity:0;transform:scale(.96) translateY(10px)}100%{opacity:1;transform:scale(1) translateY(0)}}
     @media (hover:hover){.info-table tr:hover{background:#f2f5f9}body.dark .info-table tr:hover{background:#3c3c3c}}
-    @media (min-width:640px){.content{padding:40px 32px 48px}.info-table{max-width:480px}.info-table td{padding:14px 24px;font-size:16px}.drawer{width:320px;max-width:70%;right:-340px}}
-    @media (min-width:1024px){.topbar{padding:18px 40px}.topbar-title{font-size:22px}.menu-btn{font-size:32px}.content{padding:60px 40px 64px}.big{font-size:5.6rem;margin-bottom:16px}.sub{font-size:1.5rem;margin-bottom:24px}.btn-blue{padding:14px 44px;font-size:1.25rem;margin-bottom:32px}.info-table{max-width:560px}.info-table td{padding:16px 28px;font-size:17px}.drawer{width:360px;max-width:60%;right:-380px;padding:32px 28px}.drawer-header{font-size:24px}.drawer-item{font-size:19px;padding:16px 14px}.modal{max-width:420px;padding:32px 28px 28px}.modal-title{font-size:24px}.modal-body{font-size:17px}}
+    @media (min-width:640px){.content{padding:20px 32px 32px}.info-table{max-width:480px}.info-table td{padding:14px 24px;font-size:16px}.drawer{width:320px;max-width:70%;right:-340px}.download-section{max-width:480px}.footer-img{max-width:480px}.action-row{max-width:480px}}
+    @media (min-width:1024px){.topbar{padding:18px 40px}.topbar-title{font-size:22px}.menu-btn{font-size:32px}.content{padding:24px 40px 40px}.big{font-size:5.6rem;margin-bottom:12px}.sub{font-size:1.5rem;margin-bottom:18px}.info-table{max-width:560px}.info-table td{padding:16px 28px;font-size:17px}.drawer{width:360px;max-width:60%;right:-380px;padding:32px 28px}.drawer-header{font-size:24px}.drawer-item{font-size:19px;padding:16px 14px}.modal{max-width:420px;padding:32px 28px 28px}.modal-title{font-size:24px}.modal-body{font-size:17px}.download-section{max-width:560px}.footer-img{max-width:560px}.action-row{max-width:560px}.download-item{padding:14px 20px}.download-item .app-name{font-size:17px}}
     .wallpaper-layer{position:fixed;top:0;left:0;width:100%;height:100%;z-index:-1;background-size:cover;background-position:center;background-repeat:no-repeat;transition:background-image .5s ease}
     body.dark .wallpaper-layer{filter:brightness(0.6)}
     .content,.topbar{position:relative;z-index:1}
+    body.drawer-open .content{pointer-events:none}
   </style>
 </head>
 <body>
@@ -95,10 +124,9 @@
     <div class="spacer"></div>
     <button class="menu-btn" id="menuToggle">☰</button>
   </div>
-  <div class="content">
+  <div class="content" id="mainContent">
     <div class="big" data-key="welcome">欢迎!</div>
     <div class="sub" data-key="sub">欢迎来到我的世界ojang的论坛</div>
-    <button class="btn-blue" id="biliBtnMain" data-key="bilibili">我的B站</button>
     <table class="info-table">
       <tr><td class="label" data-key="age_label">年龄</td><td class="value" data-key="age_value">11周岁</td></tr>
       <tr><td class="label" data-key="birth_label">生日</td><td class="value" data-key="birth_value">05.27</td></tr>
@@ -106,6 +134,18 @@
       <tr><td class="label" data-key="hometown_label">家乡</td><td class="value" data-key="hometown_value">山东临沂</td></tr>
       <tr><td class="label" data-key="address_label">现住址</td><td class="value" data-key="address_value">山东烟台</td></tr>
     </table>
+    <div class="action-row">
+      <button class="action-btn" id="biliAction" data-key="bilibili">我的B站</button>
+      <button class="action-btn" id="groupAction" data-key="group">加入粉丝群</button>
+    </div>
+    <div class="download-section" id="downloadSection">
+      <div class="download-item"><div class="app-info"><div class="app-name" data-key="app_bili">哔哩哔哩国际版 3.18.2</div></div><button class="dl-btn" data-url="https://dl-e.feejii.com/storage/files/2024/09/10/0/5004280540/1725938480017232.gz?t=6a91c4ed&rlimit=20&us=xOF3fAcgov&sign=392cdc8d88eae927fd278eca44c8af6b&download_name=bilibili_3.18.2.apk&p=null-14474226-57671143881">下载</button></div>
+      <div class="download-item"><div class="app-info"><div class="app-name" data-key="app_shizuku">Shizuku 13.6.0</div></div><button class="dl-btn" data-url="https://dl-e.feejii.com/storage/files/2025/05/26/2/5024712552/1748189105844813.gz?t=6a91c4e8&rlimit=20&us=equ9Ev1FFG&sign=3bb2524c236a6927a3a52f6ee4df679d&download_name=Shizuku_13.6.0.r1086.2650830c.apk&p=null-14474226-57671159631">下载</button></div>
+      <div class="download-item"><div class="app-info"><div class="app-name" data-key="app_capcut">剪映 5.7.0</div></div><button class="dl-btn" data-url="https://dl-e.feejii.com/storage/files/2026/08/29/4/5164660674/1787936150402521.gz?t=6a91c4f5&rlimit=20&us=lu0Pzm7cUX&sign=487917bd6c119ef12f4ba2f68025db97&download_name=%E5%89%AA%E6%98%A0_5.7.0.apk&p=null-14474226-57671052778">下载</button></div>
+      <div class="download-item"><div class="app-info"><div class="app-name" data-key="app_kugou">酷狗概念版 2.5.5</div></div><button class="dl-btn" data-url="https://dl-e.feejii.com/storage/files/2023/010/27/8/7471438/1698338307415276.gz?t=6a91c4f1&rlimit=20&us=TifOYtQ9SH&sign=b48e48ab18ab5c70ff42a89a9330c668&download_name=%E9%85%B7%E7%8B%97%E6%A6%82%E5%BF%B5%E7%89%88_2.5.5.apk&p=null-14474226-57671066040">下载</button></div>
+      <div class="download-item"><div class="app-info"><div class="app-name" data-key="app_ojang">ojang pe 5.1.0</div></div><button class="dl-btn" data-url="https://dl-e.feejii.com/storage/files/2026/08/27/4/5164660674/1787827573968091.gz?t=6a91c502&rlimit=20&us=ZwnvMWtYRg&sign=d6e41760cf1b7cda3f27b05f0ae82c86&download_name=ojang%20pe_5.1.0.apk&p=null-14474226-57500255056">下载</button></div>
+    </div>
+    <div class="footer-img"><img src="https://raw.githubusercontent.com/mc-ojang/mc-ojang.github.io/refs/heads/main/Title.png" alt="Title"></div>
   </div>
   <div class="overlay" id="overlay"></div>
   <div class="drawer" id="drawer">
@@ -139,6 +179,12 @@
           </div>
         </div>
         <div class="settings-group">
+          <label data-key="transparent_mode">透明模式</label>
+          <div class="settings-toggle">
+            <div class="toggle-track" id="transparentToggle"><div class="toggle-thumb"></div></div>
+          </div>
+        </div>
+        <div class="settings-group">
           <label data-key="wallpaper">壁纸</label>
           <select class="settings-select" id="wallpaperSelect">
             <option value="blank" data-key="wallpaper_blank">空白</option>
@@ -161,16 +207,17 @@
   </div>
   <script>
     (function(){
-      const menuToggle=document.getElementById('menuToggle'),overlay=document.getElementById('overlay'),drawer=document.getElementById('drawer'),drawerClose=document.getElementById('drawerClose'),introBtn=document.getElementById('introBtn'),downloadBtn=document.getElementById('downloadBtn'),biliBtn=document.getElementById('biliBtn'),biliBtnMain=document.getElementById('biliBtnMain'),modalOverlay=document.getElementById('modalOverlay'),modalClose=document.getElementById('modalClose'),settingsBtn=document.getElementById('settingsBtn'),settingsOverlay=document.getElementById('settingsOverlay'),settingsClose=document.getElementById('settingsClose'),langSelect=document.getElementById('langSelect'),darkToggle=document.getElementById('darkToggle'),webmcBtn=document.getElementById('webmcBtn'),wallpaperLayer=document.getElementById('wallpaperLayer'),wallpaperSelect=document.getElementById('wallpaperSelect');
+      const menuToggle=document.getElementById('menuToggle'),overlay=document.getElementById('overlay'),drawer=document.getElementById('drawer'),drawerClose=document.getElementById('drawerClose'),introBtn=document.getElementById('introBtn'),downloadBtn=document.getElementById('downloadBtn'),biliBtn=document.getElementById('biliBtn'),biliAction=document.getElementById('biliAction'),groupAction=document.getElementById('groupAction'),modalOverlay=document.getElementById('modalOverlay'),modalClose=document.getElementById('modalClose'),settingsBtn=document.getElementById('settingsBtn'),settingsOverlay=document.getElementById('settingsOverlay'),settingsClose=document.getElementById('settingsClose'),langSelect=document.getElementById('langSelect'),darkToggle=document.getElementById('darkToggle'),transparentToggle=document.getElementById('transparentToggle'),webmcBtn=document.getElementById('webmcBtn'),wallpaperLayer=document.getElementById('wallpaperLayer'),wallpaperSelect=document.getElementById('wallpaperSelect'),mainContent=document.getElementById('mainContent');
       let closing=!1,settingsClosing=!1;
       const wallpaperMap={blank:'',leisure:'https://raw.githubusercontent.com/mc-ojang/mc-ojang.github.io/refs/heads/main/leisure.jpg',tnt:'https://raw.githubusercontent.com/mc-ojang/mc-ojang.github.io/refs/heads/main/TNT.jpg',summer:'https://raw.githubusercontent.com/mc-ojang/mc-ojang.github.io/refs/heads/main/Summer.jpg',city:'https://raw.githubusercontent.com/mc-ojang/mc-ojang.github.io/refs/heads/main/city.jpg',dusk1:'https://raw.githubusercontent.com/mc-ojang/mc-ojang.github.io/refs/heads/main/Dusk1.jpg',dusk2:'https://raw.githubusercontent.com/mc-ojang/mc-ojang.github.io/refs/heads/main/Dusk2.jpg',earth:'https://raw.githubusercontent.com/mc-ojang/mc-ojang.github.io/refs/heads/main/Earth.jpg',grassland:'https://raw.githubusercontent.com/mc-ojang/mc-ojang.github.io/refs/heads/main/grassland.jpeg',mountain:'https://raw.githubusercontent.com/mc-ojang/mc-ojang.github.io/refs/heads/main/mountain.jpg',village:'https://raw.githubusercontent.com/mc-ojang/mc-ojang.github.io/refs/heads/main/Village.jpeg',bing:'https://bing.biturl.top/?resolution=1920&format=image&index=0&mkt=zh-CN'};
-      const dict={zh:{title:'我的世界ojang的论坛',welcome:'欢迎!',sub:'欢迎来到我的世界ojang的论坛',bilibili:'我的B站',age_label:'年龄',age_value:'11周岁',birth_label:'生日',birth_value:'05.27',job_label:'职业',job_value:'学生',hometown_label:'家乡',hometown_value:'山东临沂',address_label:'现住址',address_value:'山东烟台',menu:'菜单',intro:'简介',download:'下载ojang pe',settings:'设置',webmc:'网页版MC',intro_text:'这是简介',ok:'关闭',language:'语言',dark_mode:'深色模式',wallpaper:'壁纸',wallpaper_blank:'空白',wallpaper_leisure:'悠闲',wallpaper_tnt:'TNT！',wallpaper_summer:'海洋夏日',wallpaper_city:'城市',wallpaper_dusk1:'火烧云1',wallpaper_dusk2:'火烧云2',wallpaper_earth:'地球',wallpaper_grassland:'草原',wallpaper_mountain:'山与水',wallpaper_village:'乡村',wallpaper_bing:'必应每日一图'},en:{title:'Ojang Minecraft Forum',welcome:'Welcome!',sub:'Welcome to Ojang Minecraft Forum',bilibili:'My Bilibili',age_label:'Age',age_value:'11 years old',birth_label:'Birthday',birth_value:'05.27',job_label:'Occupation',job_value:'Student',hometown_label:'Hometown',hometown_value:'Linyi, Shandong',address_label:'Current Address',address_value:'Yantai, Shandong',menu:'Menu',intro:'About',download:'Download ojang pe',settings:'Settings',webmc:'MC Web Version',intro_text:'This is the about info.',ok:'Close',language:'Language',dark_mode:'Dark Mode',wallpaper:'Wallpaper',wallpaper_blank:'Blank',wallpaper_leisure:'Leisure',wallpaper_tnt:'TNT!',wallpaper_summer:'Summer Ocean',wallpaper_city:'City',wallpaper_dusk1:'Sunset 1',wallpaper_dusk2:'Sunset 2',wallpaper_earth:'Earth',wallpaper_grassland:'Grassland',wallpaper_mountain:'Mountain & Water',wallpaper_village:'Village',wallpaper_bing:'Bing Daily'}};
+      const dict={zh:{title:'我的世界ojang的论坛',welcome:'欢迎!',sub:'欢迎来到我的世界ojang的论坛',bilibili:'我的B站',group:'加入粉丝群',age_label:'年龄',age_value:'11周岁',birth_label:'生日',birth_value:'05.27',job_label:'职业',job_value:'学生',hometown_label:'家乡',hometown_value:'山东临沂',address_label:'现住址',address_value:'山东烟台',menu:'菜单',intro:'简介',download:'下载ojang pe',settings:'设置',webmc:'网页版MC',intro_text:'这是简介',ok:'关闭',language:'语言',dark_mode:'深色模式',transparent_mode:'透明模式',wallpaper:'壁纸',wallpaper_blank:'空白',wallpaper_leisure:'悠闲',wallpaper_tnt:'TNT！',wallpaper_summer:'海洋夏日',wallpaper_city:'城市',wallpaper_dusk1:'火烧云1',wallpaper_dusk2:'火烧云2',wallpaper_earth:'地球',wallpaper_grassland:'草原',wallpaper_mountain:'山与水',wallpaper_village:'乡村',wallpaper_bing:'必应每日一图',app_bili:'哔哩哔哩国际版 3.18.2',app_shizuku:'Shizuku 13.6.0',app_capcut:'剪映 5.7.0',app_kugou:'酷狗概念版 2.5.5',app_ojang:'ojang pe 5.1.0'},en:{title:'ojang Minecraft Forum',welcome:'Welcome!',sub:'Welcome to ojang Minecraft Forum',bilibili:'My Bilibili',group:'Join Group',age_label:'Age',age_value:'11 years old',birth_label:'Birthday',birth_value:'05.27',job_label:'Occupation',job_value:'Student',hometown_label:'Hometown',hometown_value:'Linyi, Shandong',address_label:'Current Address',address_value:'Yantai, Shandong',menu:'Menu',intro:'About',download:'Download ojang pe',settings:'Settings',webmc:'MC Web Version',intro_text:'This is the about info.',ok:'Close',language:'Language',dark_mode:'Dark Mode',transparent_mode:'Transparent Mode',wallpaper:'Wallpaper',wallpaper_blank:'Blank',wallpaper_leisure:'Leisure',wallpaper_tnt:'TNT!',wallpaper_summer:'Summer Ocean',wallpaper_city:'City',wallpaper_dusk1:'Sunset 1',wallpaper_dusk2:'Sunset 2',wallpaper_earth:'Earth',wallpaper_grassland:'Grassland',wallpaper_mountain:'Mountain & Water',wallpaper_village:'Village',wallpaper_bing:'Bing Daily',app_bili:'Bilibili International 3.18.2',app_shizuku:'Shizuku 13.6.0',app_capcut:'CapCut 5.7.0',app_kugou:'Kugou Concept 2.5.5',app_ojang:'ojang pe 5.1.0'}};
       function t(k){const lang=localStorage.getItem('lang')||'zh';return (dict[lang]&&dict[lang][k])||dict.zh[k]||k}
       function applyLang(){const lang=localStorage.getItem('lang')||'zh';langSelect.value=lang;document.querySelectorAll('[data-key]').forEach(el=>{const key=el.dataset.key;const val=t(key);if(val)el.textContent=val});document.querySelectorAll('#wallpaperSelect option').forEach(el=>{const key=el.dataset.key;if(key){const val=t(key);if(val)el.textContent=val}});}
       function applyTheme(){const dark=localStorage.getItem('dark')==='true';document.body.classList.toggle('dark',dark);darkToggle.classList.toggle('active',dark);}
+      function applyTransparent(){const trans=localStorage.getItem('transparent')==='true';document.body.classList.toggle('transparent',trans);transparentToggle.classList.toggle('active',trans);}
       function applyWallpaper(){const val=localStorage.getItem('wallpaper')||'blank';wallpaperSelect.value=val;const url=wallpaperMap[val];if(url){wallpaperLayer.style.backgroundImage='url('+url+')';}else{wallpaperLayer.style.backgroundImage='none';}}
-      function openDrawer(){overlay.classList.add('open');drawer.classList.add('open')}
-      function closeDrawer(){overlay.classList.remove('open');drawer.classList.remove('open')}
+      function openDrawer(){overlay.classList.add('open');drawer.classList.add('open');document.body.classList.add('drawer-open');}
+      function closeDrawer(){overlay.classList.remove('open');drawer.classList.remove('open');document.body.classList.remove('drawer-open');}
       function openModal(){modalOverlay.classList.remove('closing');modalOverlay.classList.add('open');closing=!1}
       function closeModal(){if(closing)return;closing=!0;modalOverlay.classList.add('closing');modalOverlay.classList.remove('open');setTimeout(()=>{modalOverlay.classList.remove('closing');closing=!1},220)}
       function openSettings(){settingsOverlay.classList.remove('closing');settingsOverlay.classList.add('open');settingsClosing=!1}
@@ -181,18 +228,21 @@
       introBtn.onclick=function(e){e.preventDefault();closeDrawer();setTimeout(openModal,120)};
       modalClose.onclick=function(e){e.preventDefault();closeModal()};
       modalOverlay.onclick=function(e){if(e.target===modalOverlay){e.preventDefault();closeModal()}};
-      downloadBtn.onclick=function(e){e.preventDefault();window.open('https://share.feijipan.com/s/Pw8OwB3N','_blank');closeDrawer()};
+      downloadBtn.onclick=function(e){e.preventDefault();window.open('https://dl-e.feejii.com/storage/files/2026/08/27/4/5164660674/1787827573968091.gz?t=6a91c502&rlimit=20&us=ZwnvMWtYRg&sign=d6e41760cf1b7cda3f27b05f0ae82c86&download_name=ojang%20pe_5.1.0.apk&p=null-14474226-57500255056','_blank');closeDrawer()};
       biliBtn.onclick=function(e){e.preventDefault();window.open('https://b23.tv/DCOLBfG','_blank');closeDrawer()};
-      biliBtnMain.onclick=function(e){e.preventDefault();window.open('https://b23.tv/DCOLBfG','_blank')};
+      biliAction.onclick=function(e){e.preventDefault();window.open('https://b23.tv/DCOLBfG','_blank')};
+      groupAction.onclick=function(e){e.preventDefault();window.open('http://qm.qq.com/cgi-bin/qm/qr?_wv=1027&k=_KEtLtjgIa7kpUmjQi0AtIFyNOpDFdX-&authKey=qTUVFZ8AO1Nmqu2Eyez2qM6G67KzEcBgLmCrD3MgAO69QgTZ3E%2FaOnNIsmvw0KFc&noverify=0&group_code=1083941226','_blank')};
       settingsBtn.onclick=function(e){e.preventDefault();closeDrawer();setTimeout(openSettings,120)};
       settingsClose.onclick=function(e){e.preventDefault();closeSettings()};
       settingsOverlay.onclick=function(e){if(e.target===settingsOverlay){e.preventDefault();closeSettings()}};
-      langSelect.onchange=function(){localStorage.setItem('lang',this.value);applyLang();applyTheme();applyWallpaper()};
+      langSelect.onchange=function(){localStorage.setItem('lang',this.value);applyLang();applyTheme();applyTransparent();applyWallpaper()};
       darkToggle.onclick=function(){const curr=localStorage.getItem('dark')==='true';localStorage.setItem('dark',String(!curr));applyTheme()};
+      transparentToggle.onclick=function(){const curr=localStorage.getItem('transparent')==='true';localStorage.setItem('transparent',String(!curr));applyTransparent()};
       wallpaperSelect.onchange=function(){localStorage.setItem('wallpaper',this.value);applyWallpaper()};
       document.onkeydown=function(e){if(e.key==='Escape'){closeDrawer();closeModal();closeSettings()}};
       webmcBtn.onclick=function(e){e.preventDefault();window.open('https://7.mcjslink.144449.xyz/1.8.8wasm/','_blank');closeDrawer()};
-      applyLang();applyTheme();applyWallpaper();
+      document.querySelectorAll('.dl-btn').forEach(btn=>{btn.onclick=function(e){e.preventDefault();const url=this.dataset.url;if(url)window.open(url,'_blank')}});
+      applyLang();applyTheme();applyTransparent();applyWallpaper();
     })();
   </script>
 </body>
