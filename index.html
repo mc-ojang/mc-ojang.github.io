@@ -33,6 +33,9 @@
     body.dark .download-item .app-name{color:#e8eaed}
     body.dark .dl-btn{background:#8ab4f8;color:#1e1e1e}
     body.dark .dl-btn:active{background:#6fa0e0}
+    body.dark .notice-box{background:#2d2d2d;border-color:#3c3c3c}
+    body.dark .notice-box .notice-title{color:#e8eaed}
+    body.dark .notice-box .notice-body{color:#bdc1c6}
     body.transparent .topbar{background:rgba(255,255,255,0.25);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);border-bottom-color:rgba(227,230,234,0.25)}
     body.transparent.dark .topbar{background:rgba(45,45,45,0.25);border-bottom-color:rgba(60,60,60,0.25)}
     body.transparent .drawer{background:rgba(255,255,255,0.45);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-left-color:rgba(238,241,244,0.2)}
@@ -47,6 +50,8 @@
     body.transparent.dark .info-table .value{background:rgba(45,45,45,0.3)}
     body.transparent .download-item{background:rgba(248,250,252,0.5);backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);border-bottom-color:rgba(238,241,244,0.2)}
     body.transparent.dark .download-item{background:rgba(45,45,45,0.5);border-bottom-color:rgba(60,60,60,0.2)}
+    body.transparent .notice-box{background:rgba(248,250,252,0.5);backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);border-color:rgba(238,241,244,0.2)}
+    body.transparent.dark .notice-box{background:rgba(45,45,45,0.5);border-color:rgba(60,60,60,0.2)}
     .topbar{background:#fff;padding:14px 20px;display:flex;align-items:center;border-bottom:1px solid #e3e6ea;position:sticky;top:0;z-index:10;animation:slideDown .4s cubic-bezier(0.15,0.85,0.35,1) both;transition:background .25s,border-color .25s,backdrop-filter .25s;flex-shrink:0}
     .topbar-title{font-size:18px;font-weight:500;color:#1e1e1e;letter-spacing:.3px;transition:color .25s}
     .spacer{flex:1}
@@ -104,13 +109,16 @@
     .action-btn{background:#1a73e8;color:#fff;border:0;padding:10px 28px;border-radius:32px;font-size:15px;font-weight:500;cursor:pointer;transition:transform .12s,box-shadow .2s,background .25s,color .25s;box-shadow:0 4px 8px rgba(26,115,232,0.12);flex:1;min-width:120px}
     .action-btn:active{transform:scale(.92);box-shadow:0 2px 4px rgba(26,115,232,0.06)}
     body.dark .action-btn{background:#8ab4f8;color:#1e1e1e}
+    .notice-box{width:100%;max-width:380px;background:#f8fafc;border-radius:16px;padding:14px 18px;margin:6px 0 10px;border:1px solid #eef1f4;text-align:left;animation:fadePop .5s cubic-bezier(0.15,0.85,0.35,1) .36s both;transition:background .25s,border-color .25s,backdrop-filter .25s}
+    .notice-box .notice-title{font-size:16px;font-weight:600;color:#1e1e1e;margin-bottom:4px;transition:color .25s}
+    .notice-box .notice-body{font-size:14px;color:#3c4043;transition:color .25s}
     .footer-img{margin:8px 0 8px;width:100%;max-width:380px;animation:fadePop .5s cubic-bezier(0.15,0.85,0.35,1) .38s both}
     .footer-img img{width:100%;height:auto;display:block;border-radius:16px}
     @keyframes slideDown{0%{opacity:0;transform:translateY(-12px)}100%{opacity:1;transform:translateY(0)}}
     @keyframes fadePop{0%{opacity:0;transform:scale(.96) translateY(10px)}100%{opacity:1;transform:scale(1) translateY(0)}}
     @media (hover:hover){.info-table tr:hover{background:#f2f5f9}body.dark .info-table tr:hover{background:#3c3c3c}}
-    @media (min-width:640px){.content{padding:20px 32px 32px}.info-table{max-width:480px}.info-table td{padding:14px 24px;font-size:16px}.drawer{width:320px;max-width:70%;right:-340px}.download-section{max-width:480px}.footer-img{max-width:480px}.action-row{max-width:480px}}
-    @media (min-width:1024px){.topbar{padding:18px 40px}.topbar-title{font-size:22px}.menu-btn{font-size:32px}.content{padding:24px 40px 40px}.big{font-size:5.6rem;margin-bottom:12px}.sub{font-size:1.5rem;margin-bottom:18px}.info-table{max-width:560px}.info-table td{padding:16px 28px;font-size:17px}.drawer{width:360px;max-width:60%;right:-380px;padding:32px 28px}.drawer-header{font-size:24px}.drawer-item{font-size:19px;padding:16px 14px}.modal{max-width:420px;padding:32px 28px 28px}.modal-title{font-size:24px}.modal-body{font-size:17px}.download-section{max-width:560px}.footer-img{max-width:560px}.action-row{max-width:560px}.download-item{padding:14px 20px}.download-item .app-name{font-size:17px}}
+    @media (min-width:640px){.content{padding:20px 32px 32px}.info-table{max-width:480px}.info-table td{padding:14px 24px;font-size:16px}.drawer{width:320px;max-width:70%;right:-340px}.download-section{max-width:480px}.footer-img{max-width:480px}.action-row{max-width:480px}.notice-box{max-width:480px}}
+    @media (min-width:1024px){.topbar{padding:18px 40px}.topbar-title{font-size:22px}.menu-btn{font-size:32px}.content{padding:24px 40px 40px}.big{font-size:5.6rem;margin-bottom:12px}.sub{font-size:1.5rem;margin-bottom:18px}.info-table{max-width:560px}.info-table td{padding:16px 28px;font-size:17px}.drawer{width:360px;max-width:60%;right:-380px;padding:32px 28px}.drawer-header{font-size:24px}.drawer-item{font-size:19px;padding:16px 14px}.modal{max-width:420px;padding:32px 28px 28px}.modal-title{font-size:24px}.modal-body{font-size:17px}.download-section{max-width:560px}.footer-img{max-width:560px}.action-row{max-width:560px}.notice-box{max-width:560px}.download-item{padding:14px 20px}.download-item .app-name{font-size:17px}}
     .wallpaper-layer{position:fixed;top:0;left:0;width:100%;height:100%;z-index:-1;background-size:cover;background-position:center;background-repeat:no-repeat;transition:background-image .5s ease}
     body.dark .wallpaper-layer{filter:brightness(0.6)}
     .content,.topbar{position:relative;z-index:1}
@@ -138,12 +146,16 @@
       <button class="action-btn" id="biliAction" data-key="bilibili">我的B站</button>
       <button class="action-btn" id="groupAction" data-key="group">加入粉丝群</button>
     </div>
+    <div class="notice-box">
+      <div class="notice-title" data-key="notice_title">公告栏</div>
+      <div class="notice-body" data-key="notice_body">暂无公告！</div>
+    </div>
     <div class="download-section" id="downloadSection">
-      <div class="download-item"><div class="app-info"><div class="app-name" data-key="app_bili">哔哩哔哩国际版 3.18.2</div></div><button class="dl-btn" data-url="https://dl-e.feejii.com/storage/files/2024/09/10/0/5004280540/1725938480017232.gz?t=6a91c4ed&rlimit=20&us=xOF3fAcgov&sign=392cdc8d88eae927fd278eca44c8af6b&download_name=bilibili_3.18.2.apk&p=null-14474226-57671143881">下载</button></div>
-      <div class="download-item"><div class="app-info"><div class="app-name" data-key="app_shizuku">Shizuku 13.6.0</div></div><button class="dl-btn" data-url="https://dl-e.feejii.com/storage/files/2025/05/26/2/5024712552/1748189105844813.gz?t=6a91c4e8&rlimit=20&us=equ9Ev1FFG&sign=3bb2524c236a6927a3a52f6ee4df679d&download_name=Shizuku_13.6.0.r1086.2650830c.apk&p=null-14474226-57671159631">下载</button></div>
-      <div class="download-item"><div class="app-info"><div class="app-name" data-key="app_capcut">剪映 5.7.0</div></div><button class="dl-btn" data-url="https://dl-e.feejii.com/storage/files/2026/08/29/4/5164660674/1787936150402521.gz?t=6a91c4f5&rlimit=20&us=lu0Pzm7cUX&sign=487917bd6c119ef12f4ba2f68025db97&download_name=%E5%89%AA%E6%98%A0_5.7.0.apk&p=null-14474226-57671052778">下载</button></div>
-      <div class="download-item"><div class="app-info"><div class="app-name" data-key="app_kugou">酷狗概念版 2.5.5</div></div><button class="dl-btn" data-url="https://dl-e.feejii.com/storage/files/2023/010/27/8/7471438/1698338307415276.gz?t=6a91c4f1&rlimit=20&us=TifOYtQ9SH&sign=b48e48ab18ab5c70ff42a89a9330c668&download_name=%E9%85%B7%E7%8B%97%E6%A6%82%E5%BF%B5%E7%89%88_2.5.5.apk&p=null-14474226-57671066040">下载</button></div>
-      <div class="download-item"><div class="app-info"><div class="app-name" data-key="app_ojang">ojang pe 5.1.0</div></div><button class="dl-btn" data-url="https://dl-e.feejii.com/storage/files/2026/08/27/4/5164660674/1787827573968091.gz?t=6a91c502&rlimit=20&us=ZwnvMWtYRg&sign=d6e41760cf1b7cda3f27b05f0ae82c86&download_name=ojang%20pe_5.1.0.apk&p=null-14474226-57500255056">下载</button></div>
+      <div class="download-item"><div class="app-info"><div class="app-name" data-key="app_bili">哔哩哔哩国际版 3.18.2</div></div><button class="dl-btn" data-url="https://share.feijipan.com/s/pW8Qyptm">下载</button></div>
+      <div class="download-item"><div class="app-info"><div class="app-name" data-key="app_shizuku">Shizuku 13.6.0</div></div><button class="dl-btn" data-url="https://share.feijipan.com/s/pW8Qyptm">下载</button></div>
+      <div class="download-item"><div class="app-info"><div class="app-name" data-key="app_capcut">剪映 5.7.0</div></div><button class="dl-btn" data-url="https://share.feijipan.com/s/pW8Qyptm">下载</button></div>
+      <div class="download-item"><div class="app-info"><div class="app-name" data-key="app_kugou">酷狗概念版 2.5.5</div></div><button class="dl-btn" data-url="https://share.feijipan.com/s/pW8Qyptm">下载</button></div>
+      <div class="download-item"><div class="app-info"><div class="app-name" data-key="app_ojang">ojang pe 5.1.0</div></div><button class="dl-btn" data-url="https://share.feijipan.com/s/pW8Qyptm">下载</button></div>
     </div>
     <div class="footer-img"><img src="https://raw.githubusercontent.com/mc-ojang/mc-ojang.github.io/refs/heads/main/Title.png" alt="Title"></div>
   </div>
@@ -152,6 +164,7 @@
     <button class="drawer-close" id="drawerClose">✕</button>
     <div class="drawer-header" data-key="menu">菜单</div>
     <button class="drawer-item" id="introBtn" data-key="intro">简介</button>
+    <button class="drawer-item" id="noticeDrawerBtn" data-key="notice">公告</button>
     <button class="drawer-item" id="downloadBtn" data-key="download">下载ojang pe</button>
     <button class="drawer-item" id="biliBtn" data-key="bilibili">我的B站</button>
     <button class="drawer-item" id="settingsBtn" data-key="settings">设置</button>
@@ -162,6 +175,13 @@
       <div class="modal-title" id="modalTitle" data-key="intro">简介</div>
       <div class="modal-body" id="modalBody" data-key="intro_text">这是简介</div>
       <button class="modal-btn" id="modalClose" data-key="ok">关闭</button>
+    </div>
+  </div>
+  <div class="modal-overlay" id="noticeModalOverlay">
+    <div class="modal">
+      <div class="modal-title" data-key="notice">公告</div>
+      <div class="modal-body" data-key="notice_body">暂无公告！</div>
+      <button class="modal-btn" id="noticeModalClose" data-key="ok">关闭</button>
     </div>
   </div>
   <div class="modal-overlay" id="settingsOverlay">
@@ -207,10 +227,10 @@
   </div>
   <script>
     (function(){
-      const menuToggle=document.getElementById('menuToggle'),overlay=document.getElementById('overlay'),drawer=document.getElementById('drawer'),drawerClose=document.getElementById('drawerClose'),introBtn=document.getElementById('introBtn'),downloadBtn=document.getElementById('downloadBtn'),biliBtn=document.getElementById('biliBtn'),biliAction=document.getElementById('biliAction'),groupAction=document.getElementById('groupAction'),modalOverlay=document.getElementById('modalOverlay'),modalClose=document.getElementById('modalClose'),settingsBtn=document.getElementById('settingsBtn'),settingsOverlay=document.getElementById('settingsOverlay'),settingsClose=document.getElementById('settingsClose'),langSelect=document.getElementById('langSelect'),darkToggle=document.getElementById('darkToggle'),transparentToggle=document.getElementById('transparentToggle'),webmcBtn=document.getElementById('webmcBtn'),wallpaperLayer=document.getElementById('wallpaperLayer'),wallpaperSelect=document.getElementById('wallpaperSelect'),mainContent=document.getElementById('mainContent');
-      let closing=!1,settingsClosing=!1;
+      const menuToggle=document.getElementById('menuToggle'),overlay=document.getElementById('overlay'),drawer=document.getElementById('drawer'),drawerClose=document.getElementById('drawerClose'),introBtn=document.getElementById('introBtn'),downloadBtn=document.getElementById('downloadBtn'),biliBtn=document.getElementById('biliBtn'),biliAction=document.getElementById('biliAction'),groupAction=document.getElementById('groupAction'),modalOverlay=document.getElementById('modalOverlay'),modalClose=document.getElementById('modalClose'),noticeModalOverlay=document.getElementById('noticeModalOverlay'),noticeModalClose=document.getElementById('noticeModalClose'),noticeDrawerBtn=document.getElementById('noticeDrawerBtn'),settingsBtn=document.getElementById('settingsBtn'),settingsOverlay=document.getElementById('settingsOverlay'),settingsClose=document.getElementById('settingsClose'),langSelect=document.getElementById('langSelect'),darkToggle=document.getElementById('darkToggle'),transparentToggle=document.getElementById('transparentToggle'),webmcBtn=document.getElementById('webmcBtn'),wallpaperLayer=document.getElementById('wallpaperLayer'),wallpaperSelect=document.getElementById('wallpaperSelect'),mainContent=document.getElementById('mainContent');
+      let closing=!1,settingsClosing=!1,noticeClosing=!1;
       const wallpaperMap={blank:'',leisure:'https://raw.githubusercontent.com/mc-ojang/mc-ojang.github.io/refs/heads/main/leisure.jpg',tnt:'https://raw.githubusercontent.com/mc-ojang/mc-ojang.github.io/refs/heads/main/TNT.jpg',summer:'https://raw.githubusercontent.com/mc-ojang/mc-ojang.github.io/refs/heads/main/Summer.jpg',city:'https://raw.githubusercontent.com/mc-ojang/mc-ojang.github.io/refs/heads/main/city.jpg',dusk1:'https://raw.githubusercontent.com/mc-ojang/mc-ojang.github.io/refs/heads/main/Dusk1.jpg',dusk2:'https://raw.githubusercontent.com/mc-ojang/mc-ojang.github.io/refs/heads/main/Dusk2.jpg',earth:'https://raw.githubusercontent.com/mc-ojang/mc-ojang.github.io/refs/heads/main/Earth.jpg',grassland:'https://raw.githubusercontent.com/mc-ojang/mc-ojang.github.io/refs/heads/main/grassland.jpeg',mountain:'https://raw.githubusercontent.com/mc-ojang/mc-ojang.github.io/refs/heads/main/mountain.jpg',village:'https://raw.githubusercontent.com/mc-ojang/mc-ojang.github.io/refs/heads/main/Village.jpeg',bing:'https://bing.biturl.top/?resolution=1920&format=image&index=0&mkt=zh-CN'};
-      const dict={zh:{title:'我的世界ojang的论坛',welcome:'欢迎!',sub:'欢迎来到我的世界ojang的论坛',bilibili:'我的B站',group:'加入粉丝群',age_label:'年龄',age_value:'11周岁',birth_label:'生日',birth_value:'05.27',job_label:'职业',job_value:'学生',hometown_label:'家乡',hometown_value:'山东临沂',address_label:'现住址',address_value:'山东烟台',menu:'菜单',intro:'简介',download:'下载ojang pe',settings:'设置',webmc:'网页版MC',intro_text:'这是简介',ok:'关闭',language:'语言',dark_mode:'深色模式',transparent_mode:'透明模式',wallpaper:'壁纸',wallpaper_blank:'空白',wallpaper_leisure:'悠闲',wallpaper_tnt:'TNT！',wallpaper_summer:'海洋夏日',wallpaper_city:'城市',wallpaper_dusk1:'火烧云1',wallpaper_dusk2:'火烧云2',wallpaper_earth:'地球',wallpaper_grassland:'草原',wallpaper_mountain:'山与水',wallpaper_village:'乡村',wallpaper_bing:'必应每日一图',app_bili:'哔哩哔哩国际版 3.18.2',app_shizuku:'Shizuku 13.6.0',app_capcut:'剪映 5.7.0',app_kugou:'酷狗概念版 2.5.5',app_ojang:'ojang pe 5.1.0'},en:{title:'ojang Minecraft Forum',welcome:'Welcome!',sub:'Welcome to ojang Minecraft Forum',bilibili:'My Bilibili',group:'Join Group',age_label:'Age',age_value:'11 years old',birth_label:'Birthday',birth_value:'05.27',job_label:'Occupation',job_value:'Student',hometown_label:'Hometown',hometown_value:'Linyi, Shandong',address_label:'Current Address',address_value:'Yantai, Shandong',menu:'Menu',intro:'About',download:'Download ojang pe',settings:'Settings',webmc:'MC Web Version',intro_text:'This is the about info.',ok:'Close',language:'Language',dark_mode:'Dark Mode',transparent_mode:'Transparent Mode',wallpaper:'Wallpaper',wallpaper_blank:'Blank',wallpaper_leisure:'Leisure',wallpaper_tnt:'TNT!',wallpaper_summer:'Summer Ocean',wallpaper_city:'City',wallpaper_dusk1:'Sunset 1',wallpaper_dusk2:'Sunset 2',wallpaper_earth:'Earth',wallpaper_grassland:'Grassland',wallpaper_mountain:'Mountain & Water',wallpaper_village:'Village',wallpaper_bing:'Bing Daily',app_bili:'Bilibili International 3.18.2',app_shizuku:'Shizuku 13.6.0',app_capcut:'CapCut 5.7.0',app_kugou:'Kugou Concept 2.5.5',app_ojang:'ojang pe 5.1.0'}};
+      const dict={zh:{title:'我的世界ojang的论坛',welcome:'欢迎!',sub:'欢迎来到我的世界ojang的论坛',bilibili:'我的B站',group:'加入粉丝群',notice:'公告',age_label:'年龄',age_value:'11周岁',birth_label:'生日',birth_value:'05.27',job_label:'职业',job_value:'学生',hometown_label:'家乡',hometown_value:'山东临沂',address_label:'现住址',address_value:'山东烟台',menu:'菜单',intro:'简介',download:'下载ojang pe',settings:'设置',webmc:'网页版MC',intro_text:'这是简介',ok:'关闭',language:'语言',dark_mode:'深色模式',transparent_mode:'透明模式',wallpaper:'壁纸',wallpaper_blank:'空白',wallpaper_leisure:'悠闲',wallpaper_tnt:'TNT！',wallpaper_summer:'海洋夏日',wallpaper_city:'城市',wallpaper_dusk1:'火烧云1',wallpaper_dusk2:'火烧云2',wallpaper_earth:'地球',wallpaper_grassland:'草原',wallpaper_mountain:'山与水',wallpaper_village:'乡村',wallpaper_bing:'必应每日一图',app_bili:'哔哩哔哩国际版 3.18.2',app_shizuku:'Shizuku 13.6.0',app_capcut:'剪映 5.7.0',app_kugou:'酷狗概念版 2.5.5',app_ojang:'ojang pe 5.1.0',notice_title:'公告栏',notice_body:'暂无公告！'},en:{title:'ojang Minecraft Forum',welcome:'Welcome!',sub:'Welcome to ojang Minecraft Forum',bilibili:'My Bilibili',group:'Join Group',notice:'Notice',age_label:'Age',age_value:'11 years old',birth_label:'Birthday',birth_value:'05.27',job_label:'Occupation',job_value:'Student',hometown_label:'Hometown',hometown_value:'Linyi, Shandong',address_label:'Current Address',address_value:'Yantai, Shandong',menu:'Menu',intro:'About',download:'Download ojang pe',settings:'Settings',webmc:'MC Web Version',intro_text:'This is the about info.',ok:'Close',language:'Language',dark_mode:'Dark Mode',transparent_mode:'Transparent Mode',wallpaper:'Wallpaper',wallpaper_blank:'Blank',wallpaper_leisure:'Leisure',wallpaper_tnt:'TNT!',wallpaper_summer:'Summer Ocean',wallpaper_city:'City',wallpaper_dusk1:'Sunset 1',wallpaper_dusk2:'Sunset 2',wallpaper_earth:'Earth',wallpaper_grassland:'Grassland',wallpaper_mountain:'Mountain & Water',wallpaper_village:'Village',wallpaper_bing:'Bing Daily',app_bili:'Bilibili International 3.18.2',app_shizuku:'Shizuku 13.6.0',app_capcut:'CapCut 5.7.0',app_kugou:'Kugou Concept 2.5.5',app_ojang:'ojang pe 5.1.0',notice_title:'Notice Board',notice_body:'No announcements yet!'}};
       function t(k){const lang=localStorage.getItem('lang')||'zh';return (dict[lang]&&dict[lang][k])||dict.zh[k]||k}
       function applyLang(){const lang=localStorage.getItem('lang')||'zh';langSelect.value=lang;document.querySelectorAll('[data-key]').forEach(el=>{const key=el.dataset.key;const val=t(key);if(val)el.textContent=val});document.querySelectorAll('#wallpaperSelect option').forEach(el=>{const key=el.dataset.key;if(key){const val=t(key);if(val)el.textContent=val}});}
       function applyTheme(){const dark=localStorage.getItem('dark')==='true';document.body.classList.toggle('dark',dark);darkToggle.classList.toggle('active',dark);}
@@ -220,6 +240,8 @@
       function closeDrawer(){overlay.classList.remove('open');drawer.classList.remove('open');document.body.classList.remove('drawer-open');}
       function openModal(){modalOverlay.classList.remove('closing');modalOverlay.classList.add('open');closing=!1}
       function closeModal(){if(closing)return;closing=!0;modalOverlay.classList.add('closing');modalOverlay.classList.remove('open');setTimeout(()=>{modalOverlay.classList.remove('closing');closing=!1},220)}
+      function openNoticeModal(){noticeModalOverlay.classList.remove('closing');noticeModalOverlay.classList.add('open');noticeClosing=!1}
+      function closeNoticeModal(){if(noticeClosing)return;noticeClosing=!0;noticeModalOverlay.classList.add('closing');noticeModalOverlay.classList.remove('open');setTimeout(()=>{noticeModalOverlay.classList.remove('closing');noticeClosing=!1},220)}
       function openSettings(){settingsOverlay.classList.remove('closing');settingsOverlay.classList.add('open');settingsClosing=!1}
       function closeSettings(){if(settingsClosing)return;settingsClosing=!0;settingsOverlay.classList.add('closing');settingsOverlay.classList.remove('open');setTimeout(()=>{settingsOverlay.classList.remove('closing');settingsClosing=!1},220)}
       menuToggle.onclick=function(e){e.preventDefault();openDrawer()};
@@ -228,7 +250,10 @@
       introBtn.onclick=function(e){e.preventDefault();closeDrawer();setTimeout(openModal,120)};
       modalClose.onclick=function(e){e.preventDefault();closeModal()};
       modalOverlay.onclick=function(e){if(e.target===modalOverlay){e.preventDefault();closeModal()}};
-      downloadBtn.onclick=function(e){e.preventDefault();window.open('https://dl-e.feejii.com/storage/files/2026/08/27/4/5164660674/1787827573968091.gz?t=6a91c502&rlimit=20&us=ZwnvMWtYRg&sign=d6e41760cf1b7cda3f27b05f0ae82c86&download_name=ojang%20pe_5.1.0.apk&p=null-14474226-57500255056','_blank');closeDrawer()};
+      noticeDrawerBtn.onclick=function(e){e.preventDefault();closeDrawer();setTimeout(openNoticeModal,120)};
+      noticeModalClose.onclick=function(e){e.preventDefault();closeNoticeModal()};
+      noticeModalOverlay.onclick=function(e){if(e.target===noticeModalOverlay){e.preventDefault();closeNoticeModal()}};
+      downloadBtn.onclick=function(e){e.preventDefault();window.open('https://share.feijipan.com/s/pW8Qyptm','_blank');closeDrawer()};
       biliBtn.onclick=function(e){e.preventDefault();window.open('https://b23.tv/DCOLBfG','_blank');closeDrawer()};
       biliAction.onclick=function(e){e.preventDefault();window.open('https://b23.tv/DCOLBfG','_blank')};
       groupAction.onclick=function(e){e.preventDefault();window.open('http://qm.qq.com/cgi-bin/qm/qr?_wv=1027&k=_KEtLtjgIa7kpUmjQi0AtIFyNOpDFdX-&authKey=qTUVFZ8AO1Nmqu2Eyez2qM6G67KzEcBgLmCrD3MgAO69QgTZ3E%2FaOnNIsmvw0KFc&noverify=0&group_code=1083941226','_blank')};
@@ -239,7 +264,7 @@
       darkToggle.onclick=function(){const curr=localStorage.getItem('dark')==='true';localStorage.setItem('dark',String(!curr));applyTheme()};
       transparentToggle.onclick=function(){const curr=localStorage.getItem('transparent')==='true';localStorage.setItem('transparent',String(!curr));applyTransparent()};
       wallpaperSelect.onchange=function(){localStorage.setItem('wallpaper',this.value);applyWallpaper()};
-      document.onkeydown=function(e){if(e.key==='Escape'){closeDrawer();closeModal();closeSettings()}};
+      document.onkeydown=function(e){if(e.key==='Escape'){closeDrawer();closeModal();closeNoticeModal();closeSettings()}};
       webmcBtn.onclick=function(e){e.preventDefault();window.open('https://7.mcjslink.144449.xyz/1.8.8wasm/','_blank');closeDrawer()};
       document.querySelectorAll('.dl-btn').forEach(btn=>{btn.onclick=function(e){e.preventDefault();const url=this.dataset.url;if(url)window.open(url,'_blank')}});
       applyLang();applyTheme();applyTransparent();applyWallpaper();
