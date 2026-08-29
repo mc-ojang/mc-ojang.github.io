@@ -1,225 +1,220 @@
 <!DOCTYPE html>
 <html lang="zh">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
-  <title>我的世界ojang的论坛</title>
-  <style>
-    *{margin:0;padding:0;box-sizing:border-box;font-family:system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;-webkit-tap-highlight-color:transparent}
-    body{background:#fff;min-height:100vh;display:flex;flex-direction:column;transition:background .25s,color .25s;overflow:hidden;height:100vh}
-    body.dark{background:#1e1e1e;color:#e8eaed}
-    body.dark .topbar{background:#2d2d2d;border-bottom-color:#3c3c3c}
-    body.dark .topbar-title{color:#e8eaed}
-    body.dark .menu-btn{color:#8ab4f8}
-    body.dark .sub{color:#bdc1c6}
-    body.dark .info-table{background:#2d2d2d;box-shadow:0 4px 12px rgba(0,0,0,0.3)}
-    body.dark .info-table tr{border-bottom-color:#3c3c3c}
-    body.dark .info-table .label{color:#bdc1c6;background:#343434}
-    body.dark .info-table .value{background:#2d2d2d;color:#e8eaed}
-    body.dark .drawer{background:#2d2d2d;border-left-color:#3c3c3c}
-    body.dark .drawer-header{color:#e8eaed;border-bottom-color:#3c3c3c}
-    body.dark .drawer-item{color:#e8eaed}
-    body.dark .drawer-item:active{background:#3c3c3c}
-    body.dark .drawer-close{color:#bdc1c6}
-    body.dark .modal{background:#2d2d2d}
-    body.dark .modal-title{color:#e8eaed}
-    body.dark .modal-body{color:#bdc1c6}
-    body.dark .modal-btn{background:#8ab4f8;color:#1e1e1e}
-    body.dark .overlay{background:rgba(0,0,0,0.5)}
-    body.dark .btn-blue{background:#8ab4f8;color:#1e1e1e;box-shadow:0 4px 8px rgba(138,180,248,0.2)}
-    body.dark .btn-blue:active{box-shadow:0 2px 4px rgba(138,180,248,0.1)}
-    body.dark .modal-overlay{background:rgba(0,0,0,0.5)}
-    body.dark .download-item{background:#2d2d2d;border-bottom-color:#3c3c3c}
-    body.dark .download-item .app-name{color:#e8eaed}
-    body.dark .dl-btn{background:#8ab4f8;color:#1e1e1e}
-    body.dark .dl-btn:active{background:#6fa0e0}
-    body.dark .notice-box{background:#2d2d2d;border-color:#3c3c3c}
-    body.dark .notice-box .notice-title{color:#e8eaed}
-    body.dark .notice-box .notice-body{color:#bdc1c6}
-    body.transparent .topbar{background:rgba(255,255,255,0.25);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);border-bottom-color:rgba(227,230,234,0.25)}
-    body.transparent.dark .topbar{background:rgba(45,45,45,0.25);border-bottom-color:rgba(60,60,60,0.25)}
-    body.transparent .drawer{background:rgba(255,255,255,0.45);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-left-color:rgba(238,241,244,0.2)}
-    body.transparent.dark .drawer{background:rgba(45,45,45,0.45);border-left-color:rgba(60,60,60,0.2)}
-    body.transparent .modal{background:rgba(255,255,255,0.6);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)}
-    body.transparent.dark .modal{background:rgba(45,45,45,0.6)}
-    body.transparent .info-table{background:rgba(248,250,252,0.5);backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px)}
-    body.transparent.dark .info-table{background:rgba(45,45,45,0.5)}
-    body.transparent .info-table .label{background:rgba(245,247,250,0.4)}
-    body.transparent.dark .info-table .label{background:rgba(52,52,52,0.4)}
-    body.transparent .info-table .value{background:rgba(255,255,255,0.3)}
-    body.transparent.dark .info-table .value{background:rgba(45,45,45,0.3)}
-    body.transparent .download-item{background:rgba(248,250,252,0.5);backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);border-bottom-color:rgba(238,241,244,0.2)}
-    body.transparent.dark .download-item{background:rgba(45,45,45,0.5);border-bottom-color:rgba(60,60,60,0.2)}
-    body.transparent .notice-box{background:rgba(248,250,252,0.5);backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);border-color:rgba(238,241,244,0.2)}
-    body.transparent.dark .notice-box{background:rgba(45,45,45,0.5);border-color:rgba(60,60,60,0.2)}
-    .topbar{background:#fff;padding:14px 20px;display:flex;align-items:center;border-bottom:1px solid #e3e6ea;position:sticky;top:0;z-index:10;animation:slideDown .4s cubic-bezier(0.15,0.85,0.35,1) both;transition:background .25s,border-color .25s,backdrop-filter .25s;flex-shrink:0}
-    .topbar-title{font-size:18px;font-weight:500;color:#1e1e1e;letter-spacing:.3px;transition:color .25s}
-    .spacer{flex:1}
-    .menu-btn{font-size:28px;font-weight:300;color:#1a73e8;background:0;border:0;padding:0 4px;cursor:pointer;line-height:1;transition:transform .12s ease,color .25s}
-    .menu-btn:active{transform:scale(.78)}
-    .content{flex:1;display:flex;flex-direction:column;align-items:center;padding:16px 20px 20px;text-align:center;overflow-y:auto;overflow-x:hidden;height:100%}
-    .big{font-size:clamp(3.2rem,20vw,5.2rem);font-weight:400;color:#1e1e1e;margin-bottom:8px;animation:fadePop .5s cubic-bezier(0.15,0.85,0.35,1) .05s both;transition:color .25s}
-    body.dark .big{color:#e8eaed}
-    .sub{font-size:clamp(1rem,4.2vw,1.4rem);color:#3c4043;line-height:1.7;margin-bottom:14px;animation:fadePop .5s cubic-bezier(0.15,0.85,0.35,1) .12s both;transition:color .25s}
-    .info-table{width:100%;max-width:340px;border-collapse:collapse;background:#f8fafc;border-radius:20px;overflow:hidden;box-shadow:0 4px 12px rgba(0,0,0,0.02);animation:fadePop .5s cubic-bezier(0.15,0.85,0.35,1) .28s both;transition:background .25s,box-shadow .25s,backdrop-filter .25s}
-    .info-table tr{border-bottom:1px solid #eef1f4;transition:background .15s,border-color .25s}
-    .info-table tr:last-child{border-bottom:0}
-    .info-table td{padding:12px 16px;font-size:15px;color:#1e1e1e;text-align:left;transition:color .25s,background .25s}
-    .info-table .label{font-weight:500;color:#5f6368;width:38%;background:#f5f7fa;transition:color .25s,background .25s}
-    .info-table .value{background:#fff;transition:background .25s,color .25s}
-    .overlay{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.18);visibility:hidden;opacity:0;transition:opacity .25s ease,visibility 0s .25s;z-index:99}
-    .overlay.open{visibility:visible;opacity:1;transition:opacity .25s ease}
-    .drawer{position:fixed;top:0;right:-300px;width:280px;max-width:78%;height:100%;background:#fff;box-shadow:-8px 0 30px rgba(0,0,0,0.04);transition:right .3s cubic-bezier(0.2,0,0,1),background .25s,border-color .25s,backdrop-filter .25s;z-index:100;padding:24px 20px;display:flex;flex-direction:column;border-left:1px solid #eef1f4}
-    .drawer.open{right:0}
-    .drawer-header{font-size:20px;font-weight:500;color:#1e1e1e;padding-bottom:16px;border-bottom:1px solid #eef1f4;margin-bottom:20px;letter-spacing:.5px;transition:color .25s,border-color .25s}
-    .drawer-item{display:block;padding:14px 10px;font-size:17px;font-weight:400;color:#1e1e1e;border-radius:12px;margin-bottom:4px;background:0;border:0;width:100%;text-align:left;cursor:pointer;transition:background .12s,transform .12s,color .25s}
-    .drawer-item:active{background:#e8f0fe;transform:scale(.94)}
-    .drawer-close{background:0;border:0;font-size:26px;color:#5f6368;align-self:flex-end;padding:4px 8px;margin-bottom:10px;cursor:pointer;transition:transform .12s,color .25s}
-    .drawer-close:active{transform:scale(.8)}
-    .modal-overlay{position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.2);z-index:200;display:flex;align-items:center;justify-content:center;padding:20px;pointer-events:none;opacity:0;transition:opacity .25s ease,background .25s}
-    .modal-overlay.open{pointer-events:auto;opacity:1}
-    .modal-overlay.open .modal{transform:scale(1) translateY(0);opacity:1}
-    .modal-overlay.closing{pointer-events:auto;opacity:1}
-    .modal-overlay.closing .modal{transform:scale(.92) translateY(6px);opacity:0;transition:transform .2s cubic-bezier(0.2,0,0,1),opacity .2s}
-    .modal{background:#fff;border-radius:32px;max-width:340px;width:100%;padding:28px 24px 24px;box-shadow:0 20px 50px rgba(0,0,0,0.06);transform:scale(.92) translateY(12px);opacity:0;transition:transform .3s cubic-bezier(0.15,0.85,0.35,1),opacity .25s,background .25s,backdrop-filter .25s}
-    .modal-title{font-size:20px;font-weight:500;color:#1e1e1e;margin-bottom:10px;transition:color .25s}
-    .modal-body{font-size:15px;color:#3c4043;line-height:1.7;margin-bottom:22px;transition:color .25s}
-    .modal-btn{background:#1a73e8;color:#fff;border:0;padding:10px 28px;border-radius:30px;font-size:15px;font-weight:500;cursor:pointer;float:right;transition:transform .12s,box-shadow .2s,background .25s,color .25s;box-shadow:0 4px 8px rgba(26,115,232,0.12)}
-    .modal-btn:active{transform:scale(.88);box-shadow:0 2px 4px rgba(26,115,232,0.05)}
-    .settings-group{margin-bottom:14px;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
-    .settings-group label{font-size:15px;font-weight:450;color:#3c4043;transition:color .25s}
-    body.dark .settings-group label{color:#bdc1c6}
-    .settings-select{padding:6px 10px;border-radius:20px;border:1px solid #dadce0;background:#fff;font-size:14px;color:#1e1e1e;outline:none;transition:background .25s,border-color .25s,color .25s;min-width:100px}
-    body.dark .settings-select{background:#3c3c3c;border-color:#555;color:#e8eaed}
-    .settings-toggle{display:flex;gap:8px;align-items:center}
-    .toggle-track{width:44px;height:24px;border-radius:14px;background:#dadce0;cursor:pointer;position:relative;transition:background .25s;flex-shrink:0}
-    body.dark .toggle-track{background:#555}
-    .toggle-track.active{background:#1a73e8}
-    body.dark .toggle-track.active{background:#8ab4f8}
-    .toggle-thumb{width:20px;height:20px;border-radius:50%;background:#fff;position:absolute;top:2px;left:2px;transition:transform .25s;box-shadow:0 1px 4px rgba(0,0,0,0.2)}
-    .toggle-track.active .toggle-thumb{transform:translateX(20px)}
-    .modal-body .settings-group:last-child{margin-bottom:0}
-    .download-section{width:100%;max-width:380px;margin-top:12px;animation:fadePop .5s cubic-bezier(0.15,0.85,0.35,1) .32s both}
-    .download-item{display:flex;align-items:center;justify-content:space-between;padding:12px 16px;background:#f8fafc;border-radius:16px;margin-bottom:10px;border-bottom:1px solid #eef1f4;transition:background .25s,border-color .25s,backdrop-filter .25s}
-    .download-item .app-info{text-align:left;flex:1;min-width:0}
-    .download-item .app-name{font-size:15px;font-weight:500;color:#1e1e1e;transition:color .25s}
-    .dl-btn{background:#1a73e8;color:#fff;border:0;padding:6px 16px;border-radius:24px;font-size:13px;font-weight:500;cursor:pointer;transition:transform .12s,background .25s,color .25s;white-space:nowrap;margin-left:12px;flex-shrink:0}
-    .dl-btn:active{transform:scale(.88)}
-    .action-row{display:flex;flex-wrap:wrap;justify-content:center;gap:12px;margin:14px 0 10px;width:100%;max-width:380px;animation:fadePop .5s cubic-bezier(0.15,0.85,0.35,1) .34s both}
-    .action-btn{background:#1a73e8;color:#fff;border:0;padding:10px 28px;border-radius:32px;font-size:15px;font-weight:500;cursor:pointer;transition:transform .12s,box-shadow .2s,background .25s,color .25s;box-shadow:0 4px 8px rgba(26,115,232,0.12);flex:1;min-width:120px}
-    .action-btn:active{transform:scale(.92);box-shadow:0 2px 4px rgba(26,115,232,0.06)}
-    body.dark .action-btn{background:#8ab4f8;color:#1e1e1e}
-    .notice-box{width:100%;max-width:380px;background:#f8fafc;border-radius:16px;padding:14px 18px;margin:6px 0 10px;border:1px solid #eef1f4;text-align:left;animation:fadePop .5s cubic-bezier(0.15,0.85,0.35,1) .36s both;transition:background .25s,border-color .25s,backdrop-filter .25s}
-    .notice-box .notice-title{font-size:16px;font-weight:600;color:#1e1e1e;margin-bottom:4px;transition:color .25s}
-    .notice-box .notice-body{font-size:14px;color:#3c4043;transition:color .25s}
-    .footer-img{margin:8px 0 8px;width:100%;max-width:380px;animation:fadePop .5s cubic-bezier(0.15,0.85,0.35,1) .38s both}
-    .footer-img img{width:100%;height:auto;display:block;border-radius:16px}
-    @keyframes slideDown{0%{opacity:0;transform:translateY(-12px)}100%{opacity:1;transform:translateY(0)}}
-    @keyframes fadePop{0%{opacity:0;transform:scale(.96) translateY(10px)}100%{opacity:1;transform:scale(1) translateY(0)}}
-    @media (hover:hover){.info-table tr:hover{background:#f2f5f9}body.dark .info-table tr:hover{background:#3c3c3c}}
-    @media (min-width:640px){.content{padding:20px 32px 32px}.info-table{max-width:480px}.info-table td{padding:14px 24px;font-size:16px}.drawer{width:320px;max-width:70%;right:-340px}.download-section{max-width:480px}.footer-img{max-width:480px}.action-row{max-width:480px}.notice-box{max-width:480px}}
-    @media (min-width:1024px){.topbar{padding:18px 40px}.topbar-title{font-size:22px}.menu-btn{font-size:32px}.content{padding:24px 40px 40px}.big{font-size:5.6rem;margin-bottom:12px}.sub{font-size:1.5rem;margin-bottom:18px}.info-table{max-width:560px}.info-table td{padding:16px 28px;font-size:17px}.drawer{width:360px;max-width:60%;right:-380px;padding:32px 28px}.drawer-header{font-size:24px}.drawer-item{font-size:19px;padding:16px 14px}.modal{max-width:420px;padding:32px 28px 28px}.modal-title{font-size:24px}.modal-body{font-size:17px}.download-section{max-width:560px}.footer-img{max-width:560px}.action-row{max-width:560px}.notice-box{max-width:560px}.download-item{padding:14px 20px}.download-item .app-name{font-size:17px}}
-    .wallpaper-layer{position:fixed;top:0;left:0;width:100%;height:100%;z-index:-1;background-size:cover;background-position:center;background-repeat:no-repeat;transition:background-image .5s ease}
-    body.dark .wallpaper-layer{filter:brightness(0.6)}
-    .content,.topbar{position:relative;z-index:1}
-    body.drawer-open .content{pointer-events:none}
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=yes">
+<title>我的世界ojang的论坛</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;-webkit-tap-highlight-color:transparent}
+body{background:#fff;min-height:100vh;display:flex;flex-direction:column;transition:background .25s,color .25s;overflow:hidden;height:100vh}
+body.dark{background:#1e1e1e;color:#e8eaed}
+body.dark .topbar{background:#2d2d2d;border-bottom-color:#3c3c3c}
+body.dark .topbar-title{color:#e8eaed}
+body.dark .sub{color:#bdc1c6}
+body.dark .info-table{background:#2d2d2d;box-shadow:0 4px 12px rgba(0,0,0,0.3)}
+body.dark .info-table tr{border-bottom-color:#3c3c3c}
+body.dark .info-table .label{color:#bdc1c6;background:#343434}
+body.dark .info-table .value{background:#2d2d2d;color:#e8eaed}
+body.dark .drawer{background:#2d2d2d;border-left-color:#3c3c3c}
+body.dark .drawer-header{color:#e8eaed;border-bottom-color:#3c3c3c}
+body.dark .drawer-item{color:#e8eaed}
+body.dark .drawer-item:active{background:#3c3c3c}
+body.dark .drawer-close{color:#bdc1c6}
+body.dark .modal{background:#2d2d2d}
+body.dark .modal-title{color:#e8eaed}
+body.dark .modal-body{color:#bdc1c6}
+body.dark .overlay{background:rgba(0,0,0,0.5)}
+body.dark .modal-overlay{background:rgba(0,0,0,0.5)}
+body.dark .download-item{background:#2d2d2d;border-bottom-color:#3c3c3c}
+body.dark .download-item .app-name{color:#e8eaed}
+body.dark .notice-box{background:#2d2d2d;border-color:#3c3c3c}
+body.dark .notice-box .notice-title{color:#e8eaed}
+body.dark .notice-box .notice-body{color:#bdc1c6}
+body.dark .menu-btn,.body.dark .dl-btn,.body.dark .modal-btn,.body.dark .action-btn{color:#fff!important}
+body.dark .toggle-track.active{background:var(--md-primary,#1a73e8)}
+body.transparent .topbar{background:rgba(255,255,255,0.25);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);border-bottom-color:rgba(227,230,234,0.25)}
+body.transparent.dark .topbar{background:rgba(45,45,45,0.25);border-bottom-color:rgba(60,60,60,0.25)}
+body.transparent .drawer{background:rgba(255,255,255,0.45);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-left-color:rgba(238,241,244,0.2)}
+body.transparent.dark .drawer{background:rgba(45,45,45,0.45);border-left-color:rgba(60,60,60,0.2)}
+body.transparent .modal{background:rgba(255,255,255,0.6);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)}
+body.transparent.dark .modal{background:rgba(45,45,45,0.6)}
+body.transparent .info-table{background:rgba(248,250,252,0.5);backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px)}
+body.transparent.dark .info-table{background:rgba(45,45,45,0.5)}
+body.transparent .info-table .label{background:rgba(245,247,250,0.4)}
+body.transparent.dark .info-table .label{background:rgba(52,52,52,0.4)}
+body.transparent .info-table .value{background:rgba(255,255,255,0.3)}
+body.transparent.dark .info-table .value{background:rgba(45,45,45,0.3)}
+body.transparent .download-item{background:rgba(248,250,252,0.5);backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);border-bottom-color:rgba(238,241,244,0.2)}
+body.transparent.dark .download-item{background:rgba(45,45,45,0.5);border-bottom-color:rgba(60,60,60,0.2)}
+body.transparent .notice-box{background:rgba(248,250,252,0.5);backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);border-color:rgba(238,241,244,0.2)}
+body.transparent.dark .notice-box{background:rgba(45,45,45,0.5);border-color:rgba(60,60,60,0.2)}
+body.md1 .info-table,body.md1 .download-item,body.md1 .notice-box,body.md1 .modal{box-shadow:0 6px 16px rgba(0,0,0,0.15),0 2px 4px rgba(0,0,0,0.08)!important;border-radius:4px!important}
+body.md1 .info-table .label{background:#f1f3f4!important;font-weight:500}
+body.md1 .topbar{background:var(--md-primary,#1a73e8)!important;border-bottom:none!important;box-shadow:0 2px 8px rgba(0,0,0,0.2)}
+body.md1 .topbar-title,body.md1 .menu-btn{color:#fff!important}
+body.md1 .action-btn{background:var(--md-primary,#1a73e8)!important;box-shadow:0 4px 8px rgba(0,0,0,0.2)!important;border-radius:4px!important}
+body.md1 .dl-btn{background:var(--md-primary,#1a73e8)!important;border-radius:4px!important}
+body.md1 .modal-btn{background:var(--md-primary,#1a73e8)!important;border-radius:4px!important}
+body.md1 .big{color:var(--md-primary,#1a73e8)!important}
+body.md1 .sub{color:#5f6368!important}
+body.md1 .notice-box .notice-title{color:var(--md-primary,#1a73e8)!important}
+body.md1.dark .info-table,body.md1.dark .download-item,body.md1.dark .notice-box,body.md1.dark .modal{box-shadow:0 6px 16px rgba(0,0,0,0.4)!important;border-radius:4px!important;background:#2d2d2d!important}
+body.md1.dark .info-table .label{background:#3c3c3c!important;color:#bdc1c6!important}
+body.md1.dark .topbar{background:var(--md-primary,#1a73e8)!important;border-bottom:none!important;box-shadow:0 2px 8px rgba(0,0,0,0.4)}
+body.md1.dark .topbar-title,body.md1.dark .menu-btn{color:#fff!important}
+body.md1.dark .action-btn{background:var(--md-primary,#1a73e8)!important;color:#fff!important;box-shadow:0 4px 8px rgba(0,0,0,0.3)!important;border-radius:4px!important}
+body.md1.dark .dl-btn{background:var(--md-primary,#1a73e8)!important;color:#fff!important;border-radius:4px!important}
+body.md1.dark .modal-btn{background:var(--md-primary,#1a73e8)!important;color:#fff!important;border-radius:4px!important}
+body.md1.dark .big{color:var(--md-primary,#1a73e8)!important}
+body.md1.dark .sub{color:#bdc1c6!important}
+body.md1.dark .notice-box .notice-title{color:var(--md-primary,#1a73e8)!important}
+body.md1.dark .notice-box .notice-body{color:#bdc1c6!important}
+body.md1.dark .drawer,body.md1.dark .modal-overlay .modal{background:#2d2d2d!important;box-shadow:0 8px 24px rgba(0,0,0,0.4)!important}
+.topbar{background:#fff;padding:14px 20px;display:flex;align-items:center;border-bottom:1px solid #e3e6ea;position:sticky;top:0;z-index:10;animation:slideDown .4s cubic-bezier(0.15,0.85,0.35,1) both;transition:background .25s,border-color .25s,backdrop-filter .25s;flex-shrink:0}
+.topbar-title{font-size:18px;font-weight:500;color:#1e1e1e;letter-spacing:.3px;transition:color .25s}
+.spacer{flex:1}
+.menu-btn{font-size:28px;font-weight:300;background:0;border:0;padding:0 4px;cursor:pointer;line-height:1;transition:transform .12s ease,color .25s;color:var(--md-primary,#1a73e8)}
+.menu-btn:active{transform:scale(.78)}
+.content{flex:1;display:flex;flex-direction:column;align-items:center;padding:16px 20px 20px;text-align:center;overflow-y:auto;overflow-x:hidden;height:100%}
+.big{font-size:clamp(3.2rem,20vw,5.2rem);font-weight:400;color:#1e1e1e;margin-bottom:8px;animation:fadePop .5s cubic-bezier(0.15,0.85,0.35,1) .05s both;transition:color .25s}
+body.dark .big{color:#e8eaed}
+.sub{font-size:clamp(1rem,4.2vw,1.4rem);color:#3c4043;line-height:1.7;margin-bottom:14px;animation:fadePop .5s cubic-bezier(0.15,0.85,0.35,1) .12s both;transition:color .25s}
+.info-table{width:100%;max-width:340px;border-collapse:collapse;background:#f8fafc;border-radius:20px;overflow:hidden;box-shadow:0 4px 12px rgba(0,0,0,0.02);animation:fadePop .5s cubic-bezier(0.15,0.85,0.35,1) .28s both;transition:background .25s,box-shadow .25s,backdrop-filter .25s}
+.info-table tr{border-bottom:1px solid #eef1f4;transition:background .15s,border-color .25s}
+.info-table tr:last-child{border-bottom:0}
+.info-table td{padding:12px 16px;font-size:15px;color:#1e1e1e;text-align:left;transition:color .25s,background .25s}
+.info-table .label{font-weight:500;color:#5f6368;width:38%;background:#f5f7fa;transition:color .25s,background .25s}
+.info-table .value{background:#fff;transition:background .25s,color .25s}
+.overlay{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.18);visibility:hidden;opacity:0;transition:opacity .25s ease,visibility 0s .25s;z-index:99}
+.overlay.open{visibility:visible;opacity:1;transition:opacity .25s ease}
+.drawer{position:fixed;top:0;right:-300px;width:280px;max-width:78%;height:100%;background:#fff;box-shadow:-8px 0 30px rgba(0,0,0,0.04);transition:right .3s cubic-bezier(0.2,0,0,1),background .25s,border-color .25s,backdrop-filter .25s;z-index:100;padding:24px 20px;display:flex;flex-direction:column;border-left:1px solid #eef1f4}
+.drawer.open{right:0}
+.drawer-header{font-size:20px;font-weight:500;color:#1e1e1e;padding-bottom:16px;border-bottom:1px solid #eef1f4;margin-bottom:20px;letter-spacing:.5px;transition:color .25s,border-color .25s}
+.drawer-item{display:block;padding:14px 10px;font-size:17px;font-weight:400;color:#1e1e1e;border-radius:12px;margin-bottom:4px;background:0;border:0;width:100%;text-align:left;cursor:pointer;transition:background .12s,transform .12s,color .25s}
+.drawer-item:active{background:#e8f0fe;transform:scale(.94)}
+.drawer-close{background:0;border:0;font-size:26px;color:#5f6368;align-self:flex-end;padding:4px 8px;margin-bottom:10px;cursor:pointer;transition:transform .12s,color .25s}
+.drawer-close:active{transform:scale(.8)}
+.modal-overlay{position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.2);z-index:200;display:flex;align-items:center;justify-content:center;padding:20px;pointer-events:none;opacity:0;transition:opacity .25s ease,background .25s}
+.modal-overlay.open{pointer-events:auto;opacity:1}
+.modal-overlay.open .modal{transform:scale(1) translateY(0);opacity:1}
+.modal-overlay.closing{pointer-events:auto;opacity:1}
+.modal-overlay.closing .modal{transform:scale(.92) translateY(6px);opacity:0;transition:transform .2s cubic-bezier(0.2,0,0,1),opacity .2s}
+.modal{background:#fff;border-radius:32px;max-width:340px;width:100%;padding:28px 24px 24px;box-shadow:0 20px 50px rgba(0,0,0,0.06);transform:scale(.92) translateY(12px);opacity:0;transition:transform .3s cubic-bezier(0.15,0.85,0.35,1),opacity .25s,background .25s,backdrop-filter .25s}
+.modal-title{font-size:20px;font-weight:500;color:#1e1e1e;margin-bottom:10px;transition:color .25s}
+.modal-body{font-size:15px;color:#3c4043;line-height:1.7;margin-bottom:22px;transition:color .25s}
+.modal-btn{background:var(--md-primary,#1a73e8);color:#fff;border:0;padding:10px 28px;border-radius:30px;font-size:15px;font-weight:500;cursor:pointer;float:right;transition:transform .12s,box-shadow .2s,background .25s,color .25s;box-shadow:0 4px 8px rgba(0,0,0,0.12)}
+.modal-btn:active{transform:scale(.88);box-shadow:0 2px 4px rgba(0,0,0,0.05)}
+.settings-group{margin-bottom:14px;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.settings-group label{font-size:15px;font-weight:450;color:#3c4043;transition:color .25s}
+body.dark .settings-group label{color:#bdc1c6}
+.settings-select{padding:6px 10px;border-radius:20px;border:1px solid #dadce0;background:#fff;font-size:14px;color:#1e1e1e;outline:none;transition:background .25s,border-color .25s,color .25s;min-width:100px}
+body.dark .settings-select{background:#3c3c3c;border-color:#555;color:#e8eaed}
+.settings-toggle{display:flex;gap:8px;align-items:center}
+.toggle-track{width:44px;height:24px;border-radius:14px;background:#dadce0;cursor:pointer;position:relative;transition:background .25s;flex-shrink:0}
+body.dark .toggle-track{background:#555}
+.toggle-track.active{background:var(--md-primary,#1a73e8)}
+.toggle-thumb{width:20px;height:20px;border-radius:50%;background:#fff;position:absolute;top:2px;left:2px;transition:transform .25s;box-shadow:0 1px 4px rgba(0,0,0,0.2)}
+.toggle-track.active .toggle-thumb{transform:translateX(20px)}
+.modal-body .settings-group:last-child{margin-bottom:0}
+.download-section{width:100%;max-width:380px;margin-top:12px;animation:fadePop .5s cubic-bezier(0.15,0.85,0.35,1) .32s both}
+.download-item{display:flex;align-items:center;justify-content:space-between;padding:12px 16px;background:#f8fafc;border-radius:16px;margin-bottom:10px;border-bottom:1px solid #eef1f4;transition:background .25s,border-color .25s,backdrop-filter .25s}
+.download-item .app-info{text-align:left;flex:1;min-width:0}
+.download-item .app-name{font-size:15px;font-weight:500;color:#1e1e1e;transition:color .25s}
+.dl-btn{background:var(--md-primary,#1a73e8);color:#fff;border:0;padding:6px 16px;border-radius:24px;font-size:13px;font-weight:500;cursor:pointer;transition:transform .12s,background .25s,color .25s;white-space:nowrap;margin-left:12px;flex-shrink:0}
+.dl-btn:active{transform:scale(.88)}
+.action-row{display:flex;flex-wrap:wrap;justify-content:center;gap:12px;margin:14px 0 10px;width:100%;max-width:380px;animation:fadePop .5s cubic-bezier(0.15,0.85,0.35,1) .34s both}
+.action-btn{background:var(--md-primary,#1a73e8);color:#fff;border:0;padding:10px 28px;border-radius:32px;font-size:15px;font-weight:500;cursor:pointer;transition:transform .12s,box-shadow .2s,background .25s,color .25s;box-shadow:0 4px 8px rgba(0,0,0,0.12);flex:1;min-width:120px}
+.action-btn:active{transform:scale(.92);box-shadow:0 2px 4px rgba(0,0,0,0.06)}
+.notice-box{width:100%;max-width:380px;background:#f8fafc;border-radius:16px;padding:14px 18px;margin:6px 0 10px;border:1px solid #eef1f4;text-align:left;animation:fadePop .5s cubic-bezier(0.15,0.85,0.35,1) .36s both;transition:background .25s,border-color .25s,backdrop-filter .25s}
+.notice-box .notice-title{font-size:16px;font-weight:600;color:#1e1e1e;margin-bottom:4px;transition:color .25s}
+.notice-box .notice-body{font-size:14px;color:#3c4043;transition:color .25s}
+.footer-img{margin:8px 0 8px;width:100%;max-width:380px;animation:fadePop .5s cubic-bezier(0.15,0.85,0.35,1) .38s both}
+.footer-img img{width:100%;height:auto;display:block;border-radius:16px}
+@keyframes slideDown{0%{opacity:0;transform:translateY(-12px)}100%{opacity:1;transform:translateY(0)}}
+@keyframes fadePop{0%{opacity:0;transform:scale(.96) translateY(10px)}100%{opacity:1;transform:scale(1) translateY(0)}}
+@media (hover:hover){.info-table tr:hover{background:#f2f5f9}body.dark .info-table tr:hover{background:#3c3c3c}}
+@media (min-width:640px){.content{padding:20px 32px 32px}.info-table{max-width:480px}.info-table td{padding:14px 24px;font-size:16px}.drawer{width:320px;max-width:70%;right:-340px}.download-section{max-width:480px}.footer-img{max-width:480px}.action-row{max-width:480px}.notice-box{max-width:480px}}
+@media (min-width:1024px){.topbar{padding:18px 40px}.topbar-title{font-size:22px}.menu-btn{font-size:32px}.content{padding:24px 40px 40px}.big{font-size:5.6rem;margin-bottom:12px}.sub{font-size:1.5rem;margin-bottom:18px}.info-table{max-width:560px}.info-table td{padding:16px 28px;font-size:17px}.drawer{width:360px;max-width:60%;right:-380px;padding:32px 28px}.drawer-header{font-size:24px}.drawer-item{font-size:19px;padding:16px 14px}.modal{max-width:420px;padding:32px 28px 28px}.modal-title{font-size:24px}.modal-body{font-size:17px}.download-section{max-width:560px}.footer-img{max-width:560px}.action-row{max-width:560px}.notice-box{max-width:560px}.download-item{padding:14px 20px}.download-item .app-name{font-size:17px}}
+.wallpaper-layer{position:fixed;top:0;left:0;width:100%;height:100%;z-index:-1;background-size:cover;background-position:center;background-repeat:no-repeat;transition:background-image .5s ease}
+body.dark .wallpaper-layer{filter:brightness(0.6)}
+.content,.topbar{position:relative;z-index:1}
+body.drawer-open .content{pointer-events:none}
+</style>
 </head>
 <body>
 <div class="wallpaper-layer" id="wallpaperLayer"></div>
 <div class="topbar"><span class="topbar-title" data-key="title">我的世界ojang的论坛</span><div class="spacer"></div><button class="menu-btn" id="menuToggle">☰</button></div>
 <div class="content" id="mainContent">
-  <div class="big" data-key="welcome">欢迎!</div>
-  <div class="sub" data-key="sub">欢迎来到我的世界ojang的论坛</div>
-  <table class="info-table">
-    <tr><td class="label" data-key="age_label">年龄</td><td class="value" data-key="age_value">11周岁</td></tr>
-    <tr><td class="label" data-key="birth_label">生日</td><td class="value" data-key="birth_value">05.27</td></tr>
-    <tr><td class="label" data-key="job_label">职业</td><td class="value" data-key="job_value">学生</td></tr>
-    <tr><td class="label" data-key="hometown_label">家乡</td><td class="value" data-key="hometown_value">山东临沂</td></tr>
-    <tr><td class="label" data-key="address_label">现住址</td><td class="value" data-key="address_value">山东烟台</td></tr>
-  </table>
-  <div class="action-row"><button class="action-btn" id="biliAction" data-key="bilibili">我的B站</button><button class="action-btn" id="groupAction" data-key="group">加入粉丝群</button></div>
-  <div class="notice-box"><div class="notice-title" data-key="notice_title">公告栏</div><div class="notice-body" data-key="notice_body">增加了更多语言的支持</div></div>
-  <div class="download-section" id="downloadSection">
-    <div class="download-item"><div class="app-info"><div class="app-name" data-key="app_bili">哔哩哔哩国际版 3.18.2</div></div><button class="dl-btn" data-url="https://share.feijipan.com/s/pW8Qyptm">下载</button></div>
-    <div class="download-item"><div class="app-info"><div class="app-name" data-key="app_shizuku">Shizuku 13.6.0</div></div><button class="dl-btn" data-url="https://share.feijipan.com/s/pW8Qyptm">下载</button></div>
-    <div class="download-item"><div class="app-info"><div class="app-name" data-key="app_capcut">剪映 5.7.0</div></div><button class="dl-btn" data-url="https://share.feijipan.com/s/pW8Qyptm">下载</button></div>
-    <div class="download-item"><div class="app-info"><div class="app-name" data-key="app_kugou">酷狗概念版 2.5.5</div></div><button class="dl-btn" data-url="https://share.feijipan.com/s/pW8Qyptm">下载</button></div>
-    <div class="download-item"><div class="app-info"><div class="app-name" data-key="app_ojang">ojang pe 5.1.0</div></div><button class="dl-btn" data-url="https://share.feijipan.com/s/pW8Qyptm">下载</button></div>
-  </div>
-  <div class="footer-img"><img src="https://raw.githubusercontent.com/mc-ojang/mc-ojang.github.io/refs/heads/main/Title.png" alt="Title"></div>
+<div class="big" data-key="welcome">欢迎!</div>
+<div class="sub" data-key="sub">欢迎来到我的世界ojang的论坛</div>
+<table class="info-table"><tr><td class="label" data-key="age_label">年龄</td><td class="value" data-key="age_value">11周岁</td></tr><tr><td class="label" data-key="birth_label">生日</td><td class="value" data-key="birth_value">05.27</td></tr><tr><td class="label" data-key="job_label">职业</td><td class="value" data-key="job_value">学生</td></tr><tr><td class="label" data-key="hometown_label">家乡</td><td class="value" data-key="hometown_value">山东临沂</td></tr><tr><td class="label" data-key="address_label">现住址</td><td class="value" data-key="address_value">山东烟台</td></tr></table>
+<div class="action-row"><button class="action-btn" id="biliAction" data-key="bilibili">我的B站</button><button class="action-btn" id="groupAction" data-key="group">加入粉丝群</button></div>
+<div class="notice-box"><div class="notice-title" data-key="notice_title">公告栏</div><div class="notice-body" data-key="notice_body">增加了MD1主题和主题色设置功能</div></div>
+<div class="download-section" id="downloadSection">
+<div class="download-item"><div class="app-info"><div class="app-name" data-key="app_bili">哔哩哔哩国际版 3.18.2</div></div><button class="dl-btn" data-url="https://share.feijipan.com/s/pW8Qyptm">下载</button></div>
+<div class="download-item"><div class="app-info"><div class="app-name" data-key="app_shizuku">Shizuku 13.6.0</div></div><button class="dl-btn" data-url="https://share.feijipan.com/s/pW8Qyptm">下载</button></div>
+<div class="download-item"><div class="app-info"><div class="app-name" data-key="app_capcut">剪映 5.7.0</div></div><button class="dl-btn" data-url="https://share.feijipan.com/s/pW8Qyptm">下载</button></div>
+<div class="download-item"><div class="app-info"><div class="app-name" data-key="app_kugou">酷狗概念版 2.5.5</div></div><button class="dl-btn" data-url="https://share.feijipan.com/s/pW8Qyptm">下载</button></div>
+<div class="download-item"><div class="app-info"><div class="app-name" data-key="app_ojang">ojang pe 5.1.0</div></div><button class="dl-btn" data-url="https://share.feijipan.com/s/pW8Qyptm">下载</button></div>
+</div>
+<div class="footer-img"><img src="https://raw.githubusercontent.com/mc-ojang/mc-ojang.github.io/refs/heads/main/Title.png" alt="Title"></div>
 </div>
 <div class="overlay" id="overlay"></div>
-<div class="drawer" id="drawer">
-  <button class="drawer-close" id="drawerClose">✕</button>
-  <div class="drawer-header" data-key="menu">菜单</div>
-  <button class="drawer-item" id="introBtn" data-key="intro">简介</button>
-  <button class="drawer-item" id="noticeDrawerBtn" data-key="notice">公告</button>
-  <button class="drawer-item" id="downloadBtn" data-key="download">下载ojang pe</button>
-  <button class="drawer-item" id="biliBtn" data-key="bilibili">我的B站</button>
-  <button class="drawer-item" id="settingsBtn" data-key="settings">设置</button>
-  <button class="drawer-item" id="webmcBtn" data-key="webmc">网页版MC</button>
-</div>
+<div class="drawer" id="drawer"><button class="drawer-close" id="drawerClose">✕</button><div class="drawer-header" data-key="menu">菜单</div><button class="drawer-item" id="introBtn" data-key="intro">简介</button><button class="drawer-item" id="noticeDrawerBtn" data-key="notice">公告</button><button class="drawer-item" id="downloadBtn" data-key="download">下载ojang pe</button><button class="drawer-item" id="biliBtn" data-key="bilibili">我的B站</button><button class="drawer-item" id="settingsBtn" data-key="settings">设置</button><button class="drawer-item" id="webmcBtn" data-key="webmc">网页版MC</button></div>
 <div class="modal-overlay" id="modalOverlay"><div class="modal"><div class="modal-title" id="modalTitle" data-key="intro">简介</div><div class="modal-body" id="modalBody" data-key="intro_text">这是简介</div><button class="modal-btn" id="modalClose" data-key="ok">关闭</button></div></div>
-<div class="modal-overlay" id="noticeModalOverlay"><div class="modal"><div class="modal-title" data-key="notice">公告</div><div class="modal-body" data-key="notice_body">增加了更多语言的支持</div><button class="modal-btn" id="noticeModalClose" data-key="ok">关闭</button></div></div>
+<div class="modal-overlay" id="noticeModalOverlay"><div class="modal"><div class="modal-title" data-key="notice">公告</div><div class="modal-body" data-key="notice_body">增加了MD1主题和主题色设置功能</div><button class="modal-btn" id="noticeModalClose" data-key="ok">关闭</button></div></div>
 <div class="modal-overlay" id="settingsOverlay">
-  <div class="modal" style="max-width:380px;">
-    <div class="modal-title" data-key="settings">设置</div>
-    <div class="modal-body">
-      <div class="settings-group"><label data-key="language">语言</label><select class="settings-select" id="langSelect"><option value="zh">中文</option><option value="en">English</option><option value="ja">日本語</option><option value="ko">한국어</option><option value="fr">Français</option><option value="es">Español</option><option value="ru">Русский</option><option value="bo">བོད་སྐད་</option><option value="ar">العربية</option></select></div>
-      <div class="settings-group"><label data-key="dark_mode">深色模式</label><div class="settings-toggle"><div class="toggle-track" id="darkToggle"><div class="toggle-thumb"></div></div></div></div>
-      <div class="settings-group"><label data-key="transparent_mode">透明模式</label><div class="settings-toggle"><div class="toggle-track" id="transparentToggle"><div class="toggle-thumb"></div></div></div></div>
-      <div class="settings-group"><label data-key="wallpaper">壁纸</label><select class="settings-select" id="wallpaperSelect"><option value="blank" data-key="wallpaper_blank">空白</option><option value="leisure" data-key="wallpaper_leisure">悠闲</option><option value="tnt" data-key="wallpaper_tnt">TNT！</option><option value="summer" data-key="wallpaper_summer">海洋夏日</option><option value="city" data-key="wallpaper_city">城市</option><option value="dusk1" data-key="wallpaper_dusk1">火烧云1</option><option value="dusk2" data-key="wallpaper_dusk2">火烧云2</option><option value="earth" data-key="wallpaper_earth">地球</option><option value="grassland" data-key="wallpaper_grassland">草原</option><option value="mountain" data-key="wallpaper_mountain">山与水</option><option value="village" data-key="wallpaper_village">乡村</option><option value="bing" data-key="wallpaper_bing">必应每日一图</option></select></div>
-    </div>
-    <button class="modal-btn" id="settingsClose" data-key="ok">关闭</button>
-  </div>
-</div>
+<div class="modal" style="max-width:400px;"><div class="modal-title" data-key="settings">设置</div><div class="modal-body">
+<div class="settings-group"><label data-key="language">语言</label><select class="settings-select" id="langSelect"><option value="zh">中文</option><option value="en">English</option><option value="ja">日本語</option><option value="ko">한국어</option><option value="fr">Français</option><option value="es">Español</option><option value="ru">Русский</option><option value="bo">བོད་སྐད་</option><option value="ar">العربية</option></select></div>
+<div class="settings-group"><label data-key="dark_mode">深色模式</label><div class="settings-toggle"><div class="toggle-track" id="darkToggle"><div class="toggle-thumb"></div></div></div></div>
+<div class="settings-group"><label data-key="transparent_mode">透明模式</label><div class="settings-toggle"><div class="toggle-track" id="transparentToggle"><div class="toggle-thumb"></div></div></div></div>
+<div class="settings-group"><label data-key="theme">主题</label><select class="settings-select" id="themeSelect"><option value="default" data-key="theme_default">默认</option><option value="md1" data-key="theme_md1">MD1</option></select></div>
+<div class="settings-group"><label data-key="theme_color">主题色</label><select class="settings-select" id="colorSelect"><option value="#1a73e8" style="background:#1a73e8;color:#fff" data-key="color_blue">蓝色</option><option value="#d32f2f" style="background:#d32f2f;color:#fff" data-key="color_red">红色</option><option value="#f57c00" style="background:#f57c00;color:#fff" data-key="color_orange">橙色</option><option value="#f9a825" style="background:#f9a825;color:#333" data-key="color_yellow">黄色</option><option value="#388e3c" style="background:#388e3c;color:#fff" data-key="color_green">绿色</option><option value="#0097a7" style="background:#0097a7;color:#fff" data-key="color_cyan">青色</option><option value="#7b1fa2" style="background:#7b1fa2;color:#fff" data-key="color_purple">紫色</option><option value="#5d4037" style="background:#5d4037;color:#fff" data-key="color_brown">棕色</option><option value="#64b5f6" style="background:#64b5f6;color:#fff" data-key="color_lightblue">浅蓝色</option><option value="#81c784" style="background:#81c784;color:#fff" data-key="color_lightgreen">浅绿色</option><option value="#f06292" style="background:#f06292;color:#fff" data-key="color_pink">粉色</option><option value="#000000" style="background:#000000;color:#fff" data-key="color_black">黑色</option><option value="#ffffff" style="background:#ffffff;color:#333;border:1px solid #ccc" data-key="color_white">白色</option><option value="custom" data-key="custom_color">自定义</option></select><input type="color" id="customColor" value="#1a73e8" style="width:36px;height:36px;border:none;padding:0;cursor:pointer;border-radius:50%;background:transparent;display:none"></div>
+<div class="settings-group"><label data-key="wallpaper">壁纸</label><select class="settings-select" id="wallpaperSelect"><option value="blank" data-key="wallpaper_blank">空白</option><option value="leisure" data-key="wallpaper_leisure">悠闲</option><option value="tnt" data-key="wallpaper_tnt">TNT！</option><option value="summer" data-key="wallpaper_summer">海洋夏日</option><option value="city" data-key="wallpaper_city">城市</option><option value="dusk1" data-key="wallpaper_dusk1">火烧云1</option><option value="dusk2"data-key="wallpaper_dusk2">火烧云2</option><option value="earth" data-key="wallpaper_earth">地球</option><option value="grassland" data-key="wallpaper_grassland">草原</option><option value="mountain" data-key="wallpaper_mountain">山与水</option><option value="village" data-key="wallpaper_village">乡村</option><option value="bing" data-key="wallpaper_bing">必应每日一图</option></select></div>
+</div><button class="modal-btn" id="settingsClose" data-key="ok">关闭</button></div></div>
 <script>
 (function(){
- const M={zh:{title:'我的世界ojang的论坛',welcome:'欢迎!',sub:'欢迎来到我的世界ojang的论坛',bilibili:'我的B站',group:'加入粉丝群',notice:'公告',age_label:'年龄',age_value:'11周岁',birth_label:'生日',birth_value:'05.27',job_label:'职业',job_value:'学生',hometown_label:'家乡',hometown_value:'山东临沂',address_label:'现住址',address_value:'山东烟台',menu:'菜单',intro:'简介',download:'下载ojang pe',settings:'设置',webmc:'网页版MC',intro_text:'这是简介',ok:'关闭',language:'语言',dark_mode:'深色模式',transparent_mode:'透明模式',wallpaper:'壁纸',wallpaper_blank:'空白',wallpaper_leisure:'悠闲',wallpaper_tnt:'TNT！',wallpaper_summer:'海洋夏日',wallpaper_city:'城市',wallpaper_dusk1:'火烧云1',wallpaper_dusk2:'火烧云2',wallpaper_earth:'地球',wallpaper_grassland:'草原',wallpaper_mountain:'山与水',wallpaper_village:'乡村',wallpaper_bing:'必应每日一图',app_bili:'哔哩哔哩国际版 3.18.2',app_shizuku:'Shizuku 13.6.0',app_capcut:'剪映 5.7.0',app_kugou:'酷狗概念版 2.5.5',app_ojang:'ojang pe 5.1.0',notice_title:'公告栏',notice_body:'增加了更多语言的支持'},
- en:{title:'ojang Minecraft Forum',welcome:'Welcome!',sub:'Welcome to ojang Minecraft Forum',bilibili:'My Bilibili',group:'Join Group',notice:'Notice',age_label:'Age',age_value:'11 years old',birth_label:'Birthday',birth_value:'05.27',job_label:'Occupation',job_value:'Student',hometown_label:'Hometown',hometown_value:'Linyi, Shandong',address_label:'Current Address',address_value:'Yantai, Shandong',menu:'Menu',intro:'About',download:'Download ojang pe',settings:'Settings',webmc:'MC Web Version',intro_text:'This is the about info.',ok:'Close',language:'Language',dark_mode:'Dark Mode',transparent_mode:'Transparent Mode',wallpaper:'Wallpaper',wallpaper_blank:'Blank',wallpaper_leisure:'Leisure',wallpaper_tnt:'TNT!',wallpaper_summer:'Summer Ocean',wallpaper_city:'City',wallpaper_dusk1:'Sunset 1',wallpaper_dusk2:'Sunset 2',wallpaper_earth:'Earth',wallpaper_grassland:'Grassland',wallpaper_mountain:'Mountain & Water',wallpaper_village:'Village',wallpaper_bing:'Bing Daily',app_bili:'Bilibili International 3.18.2',app_shizuku:'Shizuku 13.6.0',app_capcut:'CapCut 5.7.0',app_kugou:'Kugou Concept 2.5.5',app_ojang:'ojang pe 5.1.0',notice_title:'Notice Board',notice_body:'Added support for more languages'},
- ja:{title:'オジャン・マインクラフトフォーラム',welcome:'ようこそ！',sub:'オジャン・マインクラフトフォーラムへようこそ',bilibili:'私のB站',group:'グループに参加',notice:'お知らせ',age_label:'年齢',age_value:'11歳',birth_label:'誕生日',birth_value:'05.27',job_label:'職業',job_value:'学生',hometown_label:'出身地',hometown_value:'山東省臨沂',address_label:'現住所',address_value:'山東省煙台',menu:'メニュー',intro:'概要',download:'ojang peをダウンロード',settings:'設定',webmc:'MCウェブ版',intro_text:'これは概要です。',ok:'閉じる',language:'言語',dark_mode:'ダークモード',transparent_mode:'透明モード',wallpaper:'壁紙',wallpaper_blank:'空白',wallpaper_leisure:'レジャー',wallpaper_tnt:'TNT！',wallpaper_summer:'海洋の夏',wallpaper_city:'都市',wallpaper_dusk1:'夕焼け1',wallpaper_dusk2:'夕焼け2',wallpaper_earth:'地球',wallpaper_grassland:'草原',wallpaper_mountain:'山と水',wallpaper_village:'田舎',wallpaper_bing:'Bing每日一图',app_bili:'Bilibili国際版 3.18.2',app_shizuku:'Shizuku 13.6.0',app_capcut:'剪映 5.7.0',app_kugou:'酷狗コンセプト版 2.5.5',app_ojang:'ojang pe 5.1.0',notice_title:'掲示板',notice_body:'より多くの言語をサポートしました'},
- ko:{title:'오장 마인크래프트 포럼',welcome:'환영합니다!',sub:'오장 마인크래프트 포럼에 오신 것을 환영합니다',bilibili:'내 B站',group:'그룹 가입',notice:'공지',age_label:'나이',age_value:'11세',birth_label:'생일',birth_value:'05.27',job_label:'직업',job_value:'학생',hometown_label:'고향',hometown_value:'산둥 린이',address_label:'현주소',address_value:'산둥 옌타이',menu:'메뉴',intro:'소개',download:'ojang pe 다운로드',settings:'설정',webmc:'MC 웹 버전',intro_text:'소개 정보입니다.',ok:'닫기',language:'언어',dark_mode:'다크 모드',transparent_mode:'투명 모드',wallpaper:'배경화면',wallpaper_blank:'공백',wallpaper_leisure:'여유',wallpaper_tnt:'TNT!',wallpaper_summer:'바다 여름',wallpaper_city:'도시',wallpaper_dusk1:'노을1',wallpaper_dusk2:'노을2',wallpaper_earth:'지구',wallpaper_grassland:'초원',wallpaper_mountain:'산과 물',wallpaper_village:'시골',wallpaper_bing:'빙 매일',app_bili:'Bilibili 국제판 3.18.2',app_shizuku:'Shizuku 13.6.0',app_capcut:'剪映 5.7.0',app_kugou:'酷狗 컨셉판 2.5.5',app_ojang:'ojang pe 5.1.0',notice_title:'게시판',notice_body:'더 많은 언어를 지원합니다'},
- fr:{title:'Forum Minecraft d\'ojang',welcome:'Bienvenue !',sub:'Bienvenue sur le forum Minecraft d\'ojang',bilibili:'Mon B站',group:'Rejoindre le groupe',notice:'Annonce',age_label:'Âge',age_value:'11 ans',birth_label:'Anniversaire',birth_value:'05.27',job_label:'Profession',job_value:'Étudiant',hometown_label:'Ville natale',hometown_value:'Linyi, Shandong',address_label:'Adresse actuelle',address_value:'Yantai, Shandong',menu:'Menu',intro:'À propos',download:'Télécharger ojang pe',settings:'Paramètres',webmc:'Version Web MC',intro_text:'Ceci est la page à propos.',ok:'Fermer',language:'Langue',dark_mode:'Mode sombre',transparent_mode:'Mode transparent',wallpaper:'Fond d\'écran',wallpaper_blank:'Vide',wallpaper_leisure:'Loisir',wallpaper_tnt:'TNT !',wallpaper_summer:'Été océanique',wallpaper_city:'Ville',wallpaper_dusk1:'Coucher de soleil 1',wallpaper_dusk2:'Coucher de soleil 2',wallpaper_earth:'Terre',wallpaper_grassland:'Prairie',wallpaper_mountain:'Montagne et eau',wallpaper_village:'Village',wallpaper_bing:'Bing quotidien',app_bili:'Bilibili International 3.18.2',app_shizuku:'Shizuku 13.6.0',app_capcut:'CapCut 5.7.0',app_kugou:'Kugou Concept 2.5.5',app_ojang:'ojang pe 5.1.0',notice_title:'Panneau d\'affichage',notice_body:'Prise en charge de plus de langues'},
- es:{title:'Foro de Minecraft de ojang',welcome:'¡Bienvenido!',sub:'Bienvenido al foro de Minecraft de ojang',bilibili:'Mi B站',group:'Unirse al grupo',notice:'Aviso',age_label:'Edad',age_value:'11 años',birth_label:'Cumpleaños',birth_value:'05.27',job_label:'Ocupación',job_value:'Estudiante',hometown_label:'Ciudad natal',hometown_value:'Linyi, Shandong',address_label:'Dirección actual',address_value:'Yantai, Shandong',menu:'Menú',intro:'Acerca de',download:'Descargar ojang pe',settings:'Ajustes',webmc:'Versión web de MC',intro_text:'Esta es la información acerca de.',ok:'Cerrar',language:'Idioma',dark_mode:'Modo oscuro',transparent_mode:'Modo transparente',wallpaper:'Fondo de pantalla',wallpaper_blank:'Vacío',wallpaper_leisure:'Ocio',wallpaper_tnt:'¡TNT!',wallpaper_summer:'Verano oceánico',wallpaper_city:'Ciudad',wallpaper_dusk1:'Atardecer 1',wallpaper_dusk2:'Atardecer 2',wallpaper_earth:'Tierra',wallpaper_grassland:'Pradera',wallpaper_mountain:'Montaña y agua',wallpaper_village:'Pueblo',wallpaper_bing:'Bing diario',app_bili:'Bilibili Internacional 3.18.2',app_shizuku:'Shizuku 13.6.0',app_capcut:'CapCut 5.7.0',app_kugou:'Kugou Concepto 2.5.5',app_ojang:'ojang pe 5.1.0',notice_title:'Tablero de anuncios',notice_body:'Se agregó soporte para más idiomas'},
- ru:{title:'Форум Minecraft от ojang',welcome:'Добро пожаловать!',sub:'Добро пожаловать на форум Minecraft от ojang',bilibili:'Мой B站',group:'Вступить в группу',notice:'Объявление',age_label:'Возраст',age_value:'11 лет',birth_label:'День рождения',birth_value:'05.27',job_label:'Род занятий',job_value:'Студент',hometown_label:'Родной город',hometown_value:'Линьи, Шаньдун',address_label:'Текущий адрес',address_value:'Яньтай, Шаньдун',menu:'Меню',intro:'О нас',download:'Скачать ojang pe',settings:'Настройки',webmc:'Веб-версия MC',intro_text:'Это информация о нас.',ok:'Закрыть',language:'Язык',dark_mode:'Тёмный режим',transparent_mode:'Прозрачный режим',wallpaper:'Обои',wallpaper_blank:'Пусто',wallpaper_leisure:'Отдых',wallpaper_tnt:'TNT!',wallpaper_summer:'Океанское лето',wallpaper_city:'Город',wallpaper_dusk1:'Закат 1',wallpaper_dusk2:'Закат 2',wallpaper_earth:'Земля',wallpaper_grassland:'Степь',wallpaper_mountain:'Горы и вода',wallpaper_village:'Деревня',wallpaper_bing:'Bing ежедневно',app_bili:'Bilibili Международная 3.18.2',app_shizuku:'Shizuku 13.6.0',app_capcut:'CapCut 5.7.0',app_kugou:'Kugou Концепт 2.5.5',app_ojang:'ojang pe 5.1.0',notice_title:'Доска объявлений',notice_body:'Добавлена поддержка дополнительных языков'},
- bo:{title:'འཇམ་གླིང་། ojang གློག་བརྙན་སྤྱི་ཚོགས།',welcome:'བཀྲ་ཤིས་བདེ་ལེགས།',sub:'འཇམ་གླིང་། ojang གློག་བརྙན་སྤྱི་ཚོགས་ལ་ཕེབས་པར་དགའ་བསུ།',bilibili:'ངའི་B站',group:'སྤྱི་ཚོགས་སུ་ཞུགས།',notice:'གསལ་བསྒྲགས།',age_label:'ལོ་ཚད།',age_value:'ལོ་11',birth_label:'སྐྱེས་སྐར།',birth_value:'05.27',job_label:'ལས་གཞི།',job_value:'སློབ་མ།',hometown_label:'ཕ་ཡུལ།',hometown_value:'ཧྲན་ཏུང་ལིན་ཡི།',address_label:'ད་ལྟའི་གནས།',address_value:'ཧྲན་ཏུང་ཡན་ཐའི།',menu:'ཐོ་ཡིག',intro:'ངོ་སྤྲོད།',download:'ojang pe འཛིན་སྐྱོང་།',settings:'སྒྲིག་བཀོད།',webmc:'MC དྲ་ཐོག་པར་མ།',intro_text:'འདི་ནི་ངོ་སྤྲོད་ཀྱི་ཆ་འཕྲིན་ཡིན།',ok:'ཁ་བསྒྲུབ།',language:'སྐད་ཡིག',dark_mode:'ནག་པའི་རྣམ་པ།',transparent_mode:'གསལ་པའི་རྣམ་པ།',wallpaper:'རྒྱབ་རིས།',wallpaper_blank:'སྟོང་པ།',wallpaper_leisure:'གཟིམ་སྐྱིད།',wallpaper_tnt:'TNT！',wallpaper_summer:'རྒྱ་མཚོའི་དབྱར་ཁ།',wallpaper_city:'གྲོང་ཁྱེར།',wallpaper_dusk1:'མེ་སྐར་1',wallpaper_dusk2:'མེ་སྐར་2',wallpaper_earth:'ས་གཞི།',wallpaper_grassland:'རྩྭ་ཐང་།',wallpaper_mountain:'རི་དང་ཆུ།',wallpaper_village:'གྲོང་གསེབ།',wallpaper_bing:'Bing རྒྱལ་ཁབ་ཀྱི་བརྙན།',app_bili:'Bilibili རྒྱལ་སྤྱིའི་པར་མ། 3.18.2',app_shizuku:'Shizuku 13.6.0',app_capcut:'CapCut 5.7.0',app_kugou:'Kugou གཞི་རྩའི་པར་མ། 2.5.5',app_ojang:'ojang pe 5.1.0',notice_title:'གསལ་བསྒྲགས་བརྡ་ཤོག',notice_body:'སྐད་ཡིག་ཅོག་པོའི་རྒྱབ་སྐྱོར་བསྣན་པ་ཡིན།'},
- ar:{title:'منتدى ماينكرافت لأوجانغ',welcome:'مرحباً!',sub:'مرحباً بكم في منتدى ماينكرافت لأوجانغ',bilibili:'قناتي على B站',group:'انضم إلى المجموعة',notice:'إعلان',age_label:'العمر',age_value:'11 سنة',birth_label:'عيد الميلاد',birth_value:'05.27',job_label:'المهنة',job_value:'طالب',hometown_label:'مسقط الرأس',hometown_value:'لينيي، شاندونغ',address_label:'العنوان الحالي',address_value:'يانغتاي، شاندونغ',menu:'القائمة',intro:'نبذة',download:'تحميل ojang pe',settings:'الإعدادات',webmc:'نسخة ويب MC',intro_text:'هذه هي المعلومات التعريفية.',ok:'إغلاق',language:'اللغة',dark_mode:'الوضع المظلم',transparent_mode:'الوضع الشفاف',wallpaper:'خلفية الشاشة',wallpaper_blank:'فارغ',wallpaper_leisure:'استرخاء',wallpaper_tnt:'تي إن تي!',wallpaper_summer:'صيف المحيط',wallpaper_city:'مدينة',wallpaper_dusk1:'غروب الشمس 1',wallpaper_dusk2:'غروب الشمس 2',wallpaper_earth:'الأرض',wallpaper_grassland:'مرج',wallpaper_mountain:'جبل وماء',wallpaper_village:'قرية',wallpaper_bing:'صورة بينغ اليومية',app_bili:'بليبلي الدولية 3.18.2',app_shizuku:'شيزوكو 13.6.0',app_capcut:'كاب كت 5.7.0',app_kugou:'كوقو النسخة المفهوم 2.5.5',app_ojang:'أوجانغ بي إي 5.1.0',notice_title:'لوحة الإعلانات',notice_body:'تم إضافة دعم لغات إضافية'}};
- const L=localStorage;function T(k){const lang=L.getItem('lang')||'zh';return (M[lang]&&M[lang][k])||M.zh[k]||k}
- function applyLang(){const lang=L.getItem('lang')||'zh';document.getElementById('langSelect').value=lang;document.querySelectorAll('[data-key]').forEach(el=>{const k=el.dataset.key;const v=T(k);if(v)el.textContent=v});document.querySelectorAll('#wallpaperSelect option').forEach(el=>{const k=el.dataset.key;if(k){const v=T(k);if(v)el.textContent=v}});}
- function applyTheme(){const d=L.getItem('dark')==='true';document.body.classList.toggle('dark',d);document.getElementById('darkToggle').classList.toggle('active',d);}
- function applyTransparent(){const t=L.getItem('transparent')==='true';document.body.classList.toggle('transparent',t);document.getElementById('transparentToggle').classList.toggle('active',t);}
- const WM={blank:'',leisure:'https://raw.githubusercontent.com/mc-ojang/mc-ojang.github.io/refs/heads/main/leisure.jpg',tnt:'https://raw.githubusercontent.com/mc-ojang/mc-ojang.github.io/refs/heads/main/TNT.jpg',summer:'https://raw.githubusercontent.com/mc-ojang/mc-ojang.github.io/refs/heads/main/Summer.jpg',city:'https://raw.githubusercontent.com/mc-ojang/mc-ojang.github.io/refs/heads/main/city.jpg',dusk1:'https://raw.githubusercontent.com/mc-ojang/mc-ojang.github.io/refs/heads/main/Dusk1.jpg',dusk2:'https://raw.githubusercontent.com/mc-ojang/mc-ojang.github.io/refs/heads/main/Dusk2.jpg',earth:'https://raw.githubusercontent.com/mc-ojang/mc-ojang.github.io/refs/heads/main/Earth.jpg',grassland:'https://raw.githubusercontent.com/mc-ojang/mc-ojang.github.io/refs/heads/main/grassland.jpeg',mountain:'https://raw.githubusercontent.com/mc-ojang/mc-ojang.github.io/refs/heads/main/mountain.jpg',village:'https://raw.githubusercontent.com/mc-ojang/mc-ojang.github.io/refs/heads/main/Village.jpeg',bing:'https://bing.biturl.top/?resolution=1920&format=image&index=0&mkt=zh-CN'};
- function applyWallpaper(){const v=L.getItem('wallpaper')||'blank';document.getElementById('wallpaperSelect').value=v;const url=WM[v];document.getElementById('wallpaperLayer').style.backgroundImage=url?'url('+url+')':'none';}
- function openDrawer(){document.getElementById('overlay').classList.add('open');document.getElementById('drawer').classList.add('open');document.body.classList.add('drawer-open');}
- function closeDrawer(){document.getElementById('overlay').classList.remove('open');document.getElementById('drawer').classList.remove('open');document.body.classList.remove('drawer-open');}
- let c1=!1;function openModal(){const o=document.getElementById('modalOverlay');o.classList.remove('closing');o.classList.add('open');c1=!1}function closeModal(){if(c1)return;c1=!0;const o=document.getElementById('modalOverlay');o.classList.add('closing');o.classList.remove('open');setTimeout(()=>{o.classList.remove('closing');c1=!1},220)}
- let c2=!1;function openNotice(){const o=document.getElementById('noticeModalOverlay');o.classList.remove('closing');o.classList.add('open');c2=!1}function closeNotice(){if(c2)return;c2=!0;const o=document.getElementById('noticeModalOverlay');o.classList.add('closing');o.classList.remove('open');setTimeout(()=>{o.classList.remove('closing');c2=!1},220)}
- let c3=!1;function openSettings(){const o=document.getElementById('settingsOverlay');o.classList.remove('closing');o.classList.add('open');c3=!1}function closeSettings(){if(c3)return;c3=!0;const o=document.getElementById('settingsOverlay');o.classList.add('closing');o.classList.remove('open');setTimeout(()=>{o.classList.remove('closing');c3=!1},220)}
- document.getElementById('menuToggle').onclick=e=>{e.preventDefault();openDrawer()};
- document.getElementById('overlay').onclick=e=>{e.preventDefault();closeDrawer()};
- document.getElementById('drawerClose').onclick=e=>{e.preventDefault();closeDrawer()};
- document.getElementById('introBtn').onclick=e=>{e.preventDefault();closeDrawer();setTimeout(openModal,120)};
- document.getElementById('modalClose').onclick=e=>{e.preventDefault();closeModal()};
- document.getElementById('modalOverlay').onclick=e=>{if(e.target===e.currentTarget){e.preventDefault();closeModal()}};
- document.getElementById('noticeDrawerBtn').onclick=e=>{e.preventDefault();closeDrawer();setTimeout(openNotice,120)};
- document.getElementById('noticeModalClose').onclick=e=>{e.preventDefault();closeNotice()};
- document.getElementById('noticeModalOverlay').onclick=e=>{if(e.target===e.currentTarget){e.preventDefault();closeNotice()}};
- document.getElementById('downloadBtn').onclick=e=>{e.preventDefault();window.open('https://share.feijipan.com/s/pW8Qyptm','_blank');closeDrawer()};
- document.getElementById('biliBtn').onclick=e=>{e.preventDefault();window.open('https://b23.tv/DCOLBfG','_blank');closeDrawer()};
- document.getElementById('biliAction').onclick=e=>{e.preventDefault();window.open('https://b23.tv/DCOLBfG','_blank')};
- document.getElementById('groupAction').onclick=e=>{e.preventDefault();window.open('http://qm.qq.com/cgi-bin/qm/qr?_wv=1027&k=_KEtLtjgIa7kpUmjQi0AtIFyNOpDFdX-&authKey=qTUVFZ8AO1Nmqu2Eyez2qM6G67KzEcBgLmCrD3MgAO69QgTZ3E%2FaOnNIsmvw0KFc&noverify=0&group_code=1083941226','_blank')};
- document.getElementById('settingsBtn').onclick=e=>{e.preventDefault();closeDrawer();setTimeout(openSettings,120)};
- document.getElementById('settingsClose').onclick=e=>{e.preventDefault();closeSettings()};
- document.getElementById('settingsOverlay').onclick=e=>{if(e.target===e.currentTarget){e.preventDefault();closeSettings()}};
- document.getElementById('langSelect').onchange=function(){L.setItem('lang',this.value);applyLang();applyTheme();applyTransparent();applyWallpaper()};
- document.getElementById('darkToggle').onclick=function(){const curr=L.getItem('dark')==='true';L.setItem('dark',String(!curr));applyTheme()};
- document.getElementById('transparentToggle').onclick=function(){const curr=L.getItem('transparent')==='true';L.setItem('transparent',String(!curr));applyTransparent()};
- document.getElementById('wallpaperSelect').onchange=function(){L.setItem('wallpaper',this.value);applyWallpaper()};
- document.onkeydown=e=>{if(e.key==='Escape'){closeDrawer();closeModal();closeNotice();closeSettings()}};
- document.getElementById('webmcBtn').onclick=e=>{e.preventDefault();window.open('https://7.mcjslink.144449.xyz/1.8.8wasm/','_blank');closeDrawer()};
- document.querySelectorAll('.dl-btn').forEach(b=>{b.onclick=function(e){e.preventDefault();const u=this.dataset.url;if(u)window.open(u,'_blank')}});
- applyLang();applyTheme();applyTransparent();applyWallpaper();
+const M={zh:{title:'我的世界ojang的论坛',welcome:'欢迎!',sub:'欢迎来到我的世界ojang的论坛',bilibili:'我的B站',group:'加入粉丝群',notice:'公告',age_label:'年龄',age_value:'11周岁',birth_label:'生日',birth_value:'05.27',job_label:'职业',job_value:'学生',hometown_label:'家乡',hometown_value:'山东临沂',address_label:'现住址',address_value:'山东烟台',menu:'菜单',intro:'简介',download:'下载ojang pe',settings:'设置',webmc:'网页版MC',intro_text:'这是简介',ok:'关闭',language:'语言',dark_mode:'深色模式',transparent_mode:'透明模式',theme:'主题',theme_default:'默认',theme_md1:'MD1',theme_color:'主题色',custom_color:'自定义',wallpaper:'壁纸',wallpaper_blank:'空白',wallpaper_leisure:'悠闲',wallpaper_tnt:'TNT！',wallpaper_summer:'海洋夏日',wallpaper_city:'城市',wallpaper_dusk1:'火烧云1',wallpaper_dusk2:'火烧云2',wallpaper_earth:'地球',wallpaper_grassland:'草原',wallpaper_mountain:'山与水',wallpaper_village:'乡村',wallpaper_bing:'必应每日一图',app_bili:'哔哩哔哩国际版 3.18.2',app_shizuku:'Shizuku 13.6.0',app_capcut:'剪映 5.7.0',app_kugou:'酷狗概念版 2.5.5',app_ojang:'ojang pe 5.1.0',notice_title:'公告栏',notice_body:'增加了MD1主题和主题色设置功能',color_blue:'蓝色',color_red:'红色',color_orange:'橙色',color_yellow:'黄色',color_green:'绿色',color_cyan:'青色',color_purple:'紫色',color_brown:'棕色',color_lightblue:'浅蓝色',color_lightgreen:'浅绿色',color_pink:'粉色',color_black:'黑色',color_white:'白色'},en:{title:'ojang Minecraft Forum',welcome:'Welcome!',sub:'Welcome to ojang Minecraft Forum',bilibili:'My Bilibili',group:'Join Group',notice:'Notice',age_label:'Age',age_value:'11 years old',birth_label:'Birthday',birth_value:'May 27',job_label:'Occupation',job_value:'Student',hometown_label:'Hometown',hometown_value:'Linyi, Shandong',address_label:'Current Address',address_value:'Yantai, Shandong',menu:'Menu',intro:'About',download:'Download ojang pe',settings:'Settings',webmc:'MC Web Version',intro_text:'This is the about page.',ok:'Close',language:'Language',dark_mode:'Dark Mode',transparent_mode:'Transparent Mode',theme:'Theme',theme_default:'Default',theme_md1:'MD1',theme_color:'Theme Color',custom_color:'Custom',wallpaper:'Wallpaper',wallpaper_blank:'Blank',wallpaper_leisure:'Leisure',wallpaper_tnt:'TNT!',wallpaper_summer:'Summer Ocean',wallpaper_city:'City',wallpaper_dusk1:'Sunset 1',wallpaper_dusk2:'Sunset 2',wallpaper_earth:'Earth',wallpaper_grassland:'Grassland',wallpaper_mountain:'Mountain & Lake',wallpaper_village:'Village',wallpaper_bing:'Bing Daily',app_bili:'Bilibili International 3.18.2',app_shizuku:'Shizuku 13.6.0',app_capcut:'CapCut 5.7.0',app_kugou:'Kugou Concept 2.5.5',app_ojang:'ojang pe 5.1.0',notice_title:'Notice Board',notice_body:'Added MD1 theme and theme color settings',color_blue:'Blue',color_red:'Red',color_orange:'Orange',color_yellow:'Yellow',color_green:'Green',color_cyan:'Cyan',color_purple:'Purple',color_brown:'Brown',color_lightblue:'Light Blue',color_lightgreen:'Light Green',color_pink:'Pink',color_black:'Black',color_white:'White'},ja:{title:'オジャン マインクラフト フォーラム',welcome:'ようこそ！',sub:'オジャン マインクラフト フォーラムへようこそ',bilibili:'私のB站',group:'グループに参加',notice:'お知らせ',age_label:'年齢',age_value:'11歳',birth_label:'誕生日',birth_value:'5月27日',job_label:'職業',job_value:'学生',hometown_label:'出身地',hometown_value:'山東省臨沂市',address_label:'現住所',address_value:'山東省煙台市',menu:'メニュー',intro:'概要',download:'ojang peをダウンロード',settings:'設定',webmc:'MCウェブ版',intro_text:'これは概要ページです。',ok:'閉じる',language:'言語',dark_mode:'ダークモード',transparent_mode:'透明モード',theme:'テーマ',theme_default:'デフォルト',theme_md1:'MD1',theme_color:'テーマカラー',custom_color:'カスタム',wallpaper:'壁紙',wallpaper_blank:'空白',wallpaper_leisure:'レジャー',wallpaper_tnt:'TNT！',wallpaper_summer:'海洋の夏',wallpaper_city:'都市',wallpaper_dusk1:'夕焼け1',wallpaper_dusk2:'夕焼け2',wallpaper_earth:'地球',wallpaper_grassland:'草原',wallpaper_mountain:'山と湖',wallpaper_village:'田舎',wallpaper_bing:'Bing每日一图',app_bili:'Bilibili国際版 3.18.2',app_shizuku:'Shizuku 13.6.0',app_capcut:'剪映 5.7.0',app_kugou:'酷狗コンセプト版 2.5.5',app_ojang:'ojang pe 5.1.0',notice_title:'掲示板',notice_body:'MD1テーマとテーマカラー設定を追加',color_blue:'青',color_red:'赤',color_orange:'オレンジ',color_yellow:'黄',color_green:'緑',color_cyan:'シアン',color_purple:'紫',color_brown:'茶',color_lightblue:'水色',color_lightgreen:'明るい緑',color_pink:'ピンク',color_black:'黒',color_white:'白'},ko:{title:'오장 마인크래프트 포럼',welcome:'환영합니다!',sub:'오장 마인크래프트 포럼에 오신 것을 환영합니다',bilibili:'내 B站',group:'그룹 가입',notice:'공지',age_label:'나이',age_value:'11세',birth_label:'생일',birth_value:'5월 27일',job_label:'직업',job_value:'학생',hometown_label:'고향',hometown_value:'산둥성 린이시',address_label:'현주소',address_value:'산둥성 옌타이시',menu:'메뉴',intro:'소개',download:'ojang pe 다운로드',settings:'설정',webmc:'MC 웹 버전',intro_text:'소개 페이지입니다.',ok:'닫기',language:'언어',dark_mode:'다크 모드',transparent_mode:'투명 모드',theme:'테마',theme_default:'기본',theme_md1:'MD1',theme_color:'테마 색상',custom_color:'사용자 정의',wallpaper:'배경화면',wallpaper_blank:'공백',wallpaper_leisure:'여유',wallpaper_tnt:'TNT!',wallpaper_summer:'바다 여름',wallpaper_city:'도시',wallpaper_dusk1:'노을1',wallpaper_dusk2:'노을2',wallpaper_earth:'지구',wallpaper_grassland:'초원',wallpaper_mountain:'산과 호수',wallpaper_village:'시골',wallpaper_bing:'빙 매일',app_bili:'Bilibili 국제판 3.18.2',app_shizuku:'Shizuku 13.6.0',app_capcut:'CapCut 5.7.0',app_kugou:'쿠구우 컨셉판 2.5.5',app_ojang:'ojang pe 5.1.0',notice_title:'게시판',notice_body:'MD1 테마 및 테마 색상 설정 추가',color_blue:'파랑',color_red:'빨강',color_orange:'주황',color_yellow:'노랑',color_green:'초록',color_cyan:'청록',color_purple:'보라',color_brown:'갈색',color_lightblue:'연파랑',color_lightgreen:'연초록',color_pink:'분홍',color_black:'검정',color_white:'흰색'},fr:{title:'Forum Minecraft d\'ojang',welcome:'Bienvenue !',sub:'Bienvenue sur le forum Minecraft d\'ojang',bilibili:'Mon B站',group:'Rejoindre le groupe',notice:'Annonce',age_label:'Âge',age_value:'11 ans',birth_label:'Anniversaire',birth_value:'27 mai',job_label:'Profession',job_value:'Étudiant',hometown_label:'Ville natale',hometown_value:'Linyi, Shandong',address_label:'Adresse actuelle',address_value:'Yantai, Shandong',menu:'Menu',intro:'À propos',download:'Télécharger ojang pe',settings:'Paramètres',webmc:'Version Web MC',intro_text:'Ceci est la page à propos.',ok:'Fermer',language:'Langue',dark_mode:'Mode sombre',transparent_mode:'Mode transparent',theme:'Thème',theme_default:'Défaut',theme_md1:'MD1',theme_color:'Couleur du thème',custom_color:'Personnalisé',wallpaper:'Fond d\'écran',wallpaper_blank:'Vide',wallpaper_leisure:'Loisir',wallpaper_tnt:'TNT !',wallpaper_summer:'Été océanique',wallpaper_city:'Ville',wallpaper_dusk1:'Coucher de soleil 1',wallpaper_dusk2:'Coucher de soleil 2',wallpaper_earth:'Terre',wallpaper_grassland:'Prairie',wallpaper_mountain:'Montagne et lac',wallpaper_village:'Village',wallpaper_bing:'Bing quotidien',app_bili:'Bilibili International 3.18.2',app_shizuku:'Shizuku 13.6.0',app_capcut:'CapCut 5.7.0',app_kugou:'Kugou Concept 2.5.5',app_ojang:'ojang pe 5.1.0',notice_title:'Tableau d\'affichage',notice_body:'Ajout du thème MD1 et des paramètres de couleur de thème',color_blue:'Bleu',color_red:'Rouge',color_orange:'Orange',color_yellow:'Jaune',color_green:'Vert',color_cyan:'Cyan',color_purple:'Violet',color_brown:'Marron',color_lightblue:'Bleu clair',color_lightgreen:'Vert clair',color_pink:'Rose',color_black:'Noir',color_white:'Blanc'},es:{title:'Foro de Minecraft de ojang',welcome:'¡Bienvenido!',sub:'Bienvenido al foro de Minecraft de ojang',bilibili:'Mi B站',group:'Unirse al grupo',notice:'Aviso',age_label:'Edad',age_value:'11 años',birth_label:'Cumpleaños',birth_value:'27 de mayo',job_label:'Ocupación',job_value:'Estudiante',hometown_label:'Ciudad natal',hometown_value:'Linyi, Shandong',address_label:'Dirección actual',address_value:'Yantai, Shandong',menu:'Menú',intro:'Acerca de',download:'Descargar ojang pe',settings:'Ajustes',webmc:'Versión web de MC',intro_text:'Esta es la página de información.',ok:'Cerrar',language:'Idioma',dark_mode:'Modo oscuro',transparent_mode:'Modo transparente',theme:'Tema',theme_default:'Predeterminado',theme_md1:'MD1',theme_color:'Color del tema',custom_color:'Personalizado',wallpaper:'Fondo de pantalla',wallpaper_blank:'Vacío',wallpaper_leisure:'Ocio',wallpaper_tnt:'¡TNT!',wallpaper_summer:'Verano oceánico',wallpaper_city:'Ciudad',wallpaper_dusk1:'Atardecer 1',wallpaper_dusk2:'Atardecer 2',wallpaper_earth:'Tierra',wallpaper_grassland:'Pradera',wallpaper_mountain:'Montaña y lago',wallpaper_village:'Pueblo',wallpaper_bing:'Bing diario',app_bili:'Bilibili Internacional 3.18.2',app_shizuku:'Shizuku 13.6.0',app_capcut:'CapCut 5.7.0',app_kugou:'Kugou Concepto 2.5.5',app_ojang:'ojang pe 5.1.0',notice_title:'Tablero de anuncios',notice_body:'Se agregaron el tema MD1 y la configuración de color del tema',color_blue:'Azul',color_red:'Rojo',color_orange:'Naranja',color_yellow:'Amarillo',color_green:'Verde',color_cyan:'Cian',color_purple:'Púrpura',color_brown:'Marrón',color_lightblue:'Azul claro',color_lightgreen:'Verde claro',color_pink:'Rosa',color_black:'Negro',color_white:'Blanco'},ru:{title:'Форум Minecraft от ojang',welcome:'Добро пожаловать!',sub:'Добро пожаловать на форум Minecraft от ojang',bilibili:'Мой B站',group:'Вступить в группу',notice:'Объявление',age_label:'Возраст',age_value:'11 лет',birth_label:'День рождения',birth_value:'27 мая',job_label:'Род занятий',job_value:'Студент',hometown_label:'Родной город',hometown_value:'Линьи, Шаньдун',address_label:'Текущий адрес',address_value:'Яньтай, Шаньдун',menu:'Меню',intro:'О нас',download:'Скачать ojang pe',settings:'Настройки',webmc:'Веб-версия MC',intro_text:'Это страница о нас.',ok:'Закрыть',language:'Язык',dark_mode:'Тёмный режим',transparent_mode:'Прозрачный режим',theme:'Тема',theme_default:'По умолчанию',theme_md1:'MD1',theme_color:'Цвет темы',custom_color:'Пользовательский',wallpaper:'Обои',wallpaper_blank:'Пусто',wallpaper_leisure:'Отдых',wallpaper_tnt:'TNT!',wallpaper_summer:'Океанское лето',wallpaper_city:'Город',wallpaper_dusk1:'Закат 1',wallpaper_dusk2:'Закат 2',wallpaper_earth:'Земля',wallpaper_grassland:'Степь',wallpaper_mountain:'Горы и озеро',wallpaper_village:'Деревня',wallpaper_bing:'Bing ежедневно',app_bili:'Bilibili Международная 3.18.2',app_shizuku:'Shizuku 13.6.0',app_capcut:'CapCut 5.7.0',app_kugou:'Kugou Концепт 2.5.5',app_ojang:'ojang pe 5.1.0',notice_title:'Доска объявлений',notice_body:'Добавлена тема MD1 и настройка цвета темы',color_blue:'Синий',color_red:'Красный',color_orange:'Оранжевый',color_yellow:'Жёлтый',color_green:'Зелёный',color_cyan:'Циан',color_purple:'Пурпурный',color_brown:'Коричневый',color_lightblue:'Голубой',color_lightgreen:'Светло-зелёный',color_pink:'Розовый',color_black:'Чёрный',color_white:'Белый'},bo:{title:'འཇམ་གླིང་། ojang གློག་བརྙན་སྤྱི་ཚོགས།',welcome:'བཀྲ་ཤིས་བདེ་ལེགས།',sub:'འཇམ་གླིང་། ojang གློག་བརྙན་སྤྱི་ཚོགས་ལ་ཕེབས་པར་དགའ་བསུ།',bilibili:'ངའི་B站',group:'སྤྱི་ཚོགས་སུ་ཞུགས།',notice:'གསལ་བསྒྲགས།',age_label:'ལོ་ཚད།',age_value:'ལོ་11',birth_label:'སྐྱེས་སྐར།',birth_value:'05.27',job_label:'ལས་གཞི།',job_value:'སློབ་མ།',hometown_label:'ཕ་ཡུལ།',hometown_value:'ཧྲན་ཏུང་ལིན་ཡི།',address_label:'ད་ལྟའི་གནས།',address_value:'ཧྲན་ཏུང་ཡན་ཐའི།',menu:'ཐོ་ཡིག',intro:'ངོ་སྤྲོད།',download:'ojang pe འཛིན་སྐྱོང་།',settings:'སྒྲིག་བཀོད།',webmc:'MC དྲ་ཐོག་པར་མ།',intro_text:'འདི་ནི་ངོ་སྤྲོད་ཀྱི་ཆ་འཕྲིན་ཡིན།',ok:'ཁ་བསྒྲུབ།',language:'སྐད་ཡིག',dark_mode:'ནག་པའི་རྣམ་པ།',transparent_mode:'གསལ་པའི་རྣམ་པ།',theme:'གཞི་རྟེན།',theme_default:'ཐོག་མའི་གཞི་རྟེན།',theme_md1:'MD1',theme_color:'གཞི་རྟེན་གྱི་ཁ་དོག',custom_color:'གང་འདོད་ཀྱི་ཁ་དོག',wallpaper:'རྒྱབ་རིས།',wallpaper_blank:'སྟོང་པ།',wallpaper_leisure:'གཟིམ་སྐྱིད།',wallpaper_tnt:'TNT！',wallpaper_summer:'རྒྱ་མཚོའི་དབྱར་ཁ།',wallpaper_city:'གྲོང་ཁྱེར།',wallpaper_dusk1:'མེ་སྐར་1',wallpaper_dusk2:'མེ་སྐར་2',wallpaper_earth:'ས་གཞི།',wallpaper_grassland:'རྩྭ་ཐང་།',wallpaper_mountain:'རི་དང་ཆུ།',wallpaper_village:'གྲོང་གསེབ།',wallpaper_bing:'Bing རྒྱལ་ཁབ་ཀྱི་བརྙན།',app_bili:'Bilibili རྒྱལ་སྤྱིའི་པར་མ། 3.18.2',app_shizuku:'Shizuku 13.6.0',app_capcut:'CapCut 5.7.0',app_kugou:'Kugou གཞི་རྩའི་པར་མ། 2.5.5',app_ojang:'ojang pe 5.1.0',notice_title:'གསལ་བསྒྲགས་བརྡ་ཤོག',notice_body:'MD1 གཞི་རྟེན་དང་གཞི་རྟེན་ཁ་དོག་སྒྲིག་བཀོད་བསྣན་པ་ཡིན།',color_blue:'སྔོན་པོ།',color_red:'དམར་པོ།',color_orange:'ལི་ཝང་།',color_yellow:'སེར་པོ།',color_green:'ལྗང་ཁུ།',color_cyan:'སྔོ་ལྗང་།',color_purple:'སྐྱ་པོ།',color_brown:'སྨུག་པོ།',color_lightblue:'སྔོ་ཏོ།',color_lightgreen:'ལྗང་ཏོ།',color_pink:'དམར་ཏོ།',color_black:'ནག་པོ།',color_white:'དཀར་པོ།'},ar:{title:'منتدى ماينكرافت لأوجانغ',welcome:'مرحباً!',sub:'مرحباً بكم في منتدى ماينكرافت لأوجانغ',bilibili:'قناتي على B站',group:'انضم إلى المجموعة',notice:'إعلان',age_label:'العمر',age_value:'11 سنة',birth_label:'عيد الميلاد',birth_value:'27 مايو',job_label:'المهنة',job_value:'طالب',hometown_label:'مسقط الرأس',hometown_value:'لينيي، شاندونغ',address_label:'العنوان الحالي',address_value:'يانغتاي، شاندونغ',menu:'القائمة',intro:'نبذة',download:'تحميل ojang pe',settings:'الإعدادات',webmc:'نسخة ويب MC',intro_text:'هذه هي المعلومات التعريفية.',ok:'إغلاق',language:'اللغة',dark_mode:'الوضع المظلم',transparent_mode:'الوضع الشفاف',theme:'السمة',theme_default:'الافتراضي',theme_md1:'MD1',theme_color:'لون السمة',custom_color:'مخصص',wallpaper:'خلفية الشاشة',wallpaper_blank:'فارغ',wallpaper_leisure:'استرخاء',wallpaper_tnt:'تي إن تي!',wallpaper_summer:'صيف المحيط',wallpaper_city:'مدينة',wallpaper_dusk1:'غروب الشمس 1',wallpaper_dusk2:'غروب الشمس 2',wallpaper_earth:'الأرض',wallpaper_grassland:'مرج',wallpaper_mountain:'جبل وبحيرة',wallpaper_village:'قرية',wallpaper_bing:'صورة بينغ اليومية',app_bili:'بليبلي الدولية 3.18.2',app_shizuku:'شيزوكو 13.6.0',app_capcut:'كاب كت 5.7.0',app_kugou:'كوقو النسخة المفهوم 2.5.5',app_ojang:'أوجانغ بي إي 5.1.0',notice_title:'لوحة الإعلانات',notice_body:'تم إضافة سمة MD1 وإعدادات لون السمة',color_blue:'أزرق',color_red:'أحمر',color_orange:'برتقالي',color_yellow:'أصفر',color_green:'أخضر',color_cyan:'سماوي',color_purple:'بنفسجي',color_brown:'بني',color_lightblue:'أزرق فاتح',color_lightgreen:'أخضر فاتح',color_pink:'وردي',color_black:'أسود',color_white:'أبيض'}};
+const L=localStorage;function T(k){const lang=L.getItem('lang')||'zh';return (M[lang]&&M[lang][k])||M.zh[k]||k}
+function applyLang(){const lang=L.getItem('lang')||'zh';document.getElementById('langSelect').value=lang;document.querySelectorAll('[data-key]').forEach(el=>{const k=el.dataset.key;const v=T(k);if(v)el.textContent=v});document.querySelectorAll('#wallpaperSelect option').forEach(el=>{const k=el.dataset.key;if(k){const v=T(k);if(v)el.textContent=v}});document.querySelectorAll('#themeSelect option').forEach(el=>{const k=el.dataset.key;if(k){const v=T(k);if(v)el.textContent=v}});document.querySelectorAll('#colorSelect option').forEach(el=>{const k=el.dataset.key;if(k){const v=T(k);if(v)el.textContent=v}});}
+function applyTheme(){const d=L.getItem('dark')==='true';document.body.classList.toggle('dark',d);document.getElementById('darkToggle').classList.toggle('active',d);}
+function applyTransparent(){const t=L.getItem('transparent')==='true';document.body.classList.toggle('transparent',t);document.getElementById('transparentToggle').classList.toggle('active',t);}
+function applyThemeColor(){const c=L.getItem('themeColor')||'#1a73e8';document.documentElement.style.setProperty('--md-primary',c);const sel=document.getElementById('colorSelect');if(sel.value!==c&&sel.value!=='custom'){const opt=Array.from(sel.options).find(o=>o.value===c);if(opt)sel.value=c;else sel.value='custom';}if(sel.value==='custom'){document.getElementById('customColor').style.display='inline-block';document.getElementById('customColor').value=c;}else{document.getElementById('customColor').style.display='none';}}
+function applyMD1(){const m=L.getItem('theme')==='md1';document.body.classList.toggle('md1',m);document.getElementById('themeSelect').value=L.getItem('theme')||'default';applyThemeColor();}
+const WM={blank:'',leisure:'https://raw.githubusercontent.com/mc-ojang/mc-ojang.github.io/refs/heads/main/leisure.jpg',tnt:'https://raw.githubusercontent.com/mc-ojang/mc-ojang.github.io/refs/heads/main/TNT.jpg',summer:'https://raw.githubusercontent.com/mc-ojang/mc-ojang.github.io/refs/heads/main/Summer.jpg',city:'https://raw.githubusercontent.com/mc-ojang/mc-ojang.github.io/refs/heads/main/city.jpg',dusk1:'https://raw.githubusercontent.com/mc-ojang/mc-ojang.github.io/refs/heads/main/Dusk1.jpg',dusk2:'https://raw.githubusercontent.com/mc-ojang/mc-ojang.github.io/refs/heads/main/Dusk2.jpg',earth:'https://raw.githubusercontent.com/mc-ojang/mc-ojang.github.io/refs/heads/main/Earth.jpg',grassland:'https://raw.githubusercontent.com/mc-ojang/mc-ojang.github.io/refs/heads/main/grassland.jpeg',mountain:'https://raw.githubusercontent.com/mc-ojang/mc-ojang.github.io/refs/heads/main/mountain.jpg',village:'https://raw.githubusercontent.com/mc-ojang/mc-ojang.github.io/refs/heads/main/Village.jpeg',bing:'https://bing.biturl.top/?resolution=1920&format=image&index=0&mkt=zh-CN'};
+function applyWallpaper(){const v=L.getItem('wallpaper')||'blank';document.getElementById('wallpaperSelect').value=v;const url=WM[v];document.getElementById('wallpaperLayer').style.backgroundImage=url?'url('+url+')':'none';}
+function openDrawer(){document.getElementById('overlay').classList.add('open');document.getElementById('drawer').classList.add('open');document.body.classList.add('drawer-open');}
+function closeDrawer(){document.getElementById('overlay').classList.remove('open');document.getElementById('drawer').classList.remove('open');document.body.classList.remove('drawer-open');}
+let c1=!1;function openModal(){const o=document.getElementById('modalOverlay');o.classList.remove('closing');o.classList.add('open');c1=!1}function closeModal(){if(c1)return;c1=!0;const o=document.getElementById('modalOverlay');o.classList.add('closing');o.classList.remove('open');setTimeout(()=>{o.classList.remove('closing');c1=!1},220)}
+let c2=!1;function openNotice(){const o=document.getElementById('noticeModalOverlay');o.classList.remove('closing');o.classList.add('open');c2=!1}function closeNotice(){if(c2)return;c2=!0;const o=document.getElementById('noticeModalOverlay');o.classList.add('closing');o.classList.remove('open');setTimeout(()=>{o.classList.remove('closing');c2=!1},220)}
+let c3=!1;function openSettings(){const o=document.getElementById('settingsOverlay');o.classList.remove('closing');o.classList.add('open');c3=!1}function closeSettings(){if(c3)return;c3=!0;const o=document.getElementById('settingsOverlay');o.classList.add('closing');o.classList.remove('open');setTimeout(()=>{o.classList.remove('closing');c3=!1},220)}
+document.getElementById('menuToggle').onclick=e=>{e.preventDefault();openDrawer()};
+document.getElementById('overlay').onclick=e=>{e.preventDefault();closeDrawer()};
+document.getElementById('drawerClose').onclick=e=>{e.preventDefault();closeDrawer()};
+document.getElementById('introBtn').onclick=e=>{e.preventDefault();closeDrawer();setTimeout(openModal,120)};
+document.getElementById('modalClose').onclick=e=>{e.preventDefault();closeModal()};
+document.getElementById('modalOverlay').onclick=e=>{if(e.target===e.currentTarget){e.preventDefault();closeModal()}};
+document.getElementById('noticeDrawerBtn').onclick=e=>{e.preventDefault();closeDrawer();setTimeout(openNotice,120)};
+document.getElementById('noticeModalClose').onclick=e=>{e.preventDefault();closeNotice()};
+document.getElementById('noticeModalOverlay').onclick=e=>{if(e.target===e.currentTarget){e.preventDefault();closeNotice()}};
+document.getElementById('downloadBtn').onclick=e=>{e.preventDefault();window.open('https://share.feijipan.com/s/pW8Qyptm','_blank');closeDrawer()};
+document.getElementById('biliBtn').onclick=e=>{e.preventDefault();window.open('https://b23.tv/DCOLBfG','_blank');closeDrawer()};
+document.getElementById('biliAction').onclick=e=>{e.preventDefault();window.open('https://b23.tv/DCOLBfG','_blank')};
+document.getElementById('groupAction').onclick=e=>{e.preventDefault();window.open('http://qm.qq.com/cgi-bin/qm/qr?_wv=1027&k=_KEtLtjgIa7kpUmjQi0AtIFyNOpDFdX-&authKey=qTUVFZ8AO1Nmqu2Eyez2qM6G67KzEcBgLmCrD3MgAO69QgTZ3E%2FaOnNIsmvw0KFc&noverify=0&group_code=1083941226','_blank')};
+document.getElementById('settingsBtn').onclick=e=>{e.preventDefault();closeDrawer();setTimeout(openSettings,120)};
+document.getElementById('settingsClose').onclick=e=>{e.preventDefault();closeSettings()};
+document.getElementById('settingsOverlay').onclick=e=>{if(e.target===e.currentTarget){e.preventDefault();closeSettings()}};
+document.getElementById('langSelect').onchange=function(){L.setItem('lang',this.value);applyLang();applyTheme();applyTransparent();applyMD1();applyWallpaper()};
+document.getElementById('darkToggle').onclick=function(){const curr=L.getItem('dark')==='true';L.setItem('dark',String(!curr));applyTheme()};
+document.getElementById('transparentToggle').onclick=function(){const curr=L.getItem('transparent')==='true';L.setItem('transparent',String(!curr));applyTransparent()};
+document.getElementById('themeSelect').onchange=function(){L.setItem('theme',this.value);applyMD1()};
+document.getElementById('wallpaperSelect').onchange=function(){L.setItem('wallpaper',this.value);applyWallpaper()};
+document.getElementById('colorSelect').onchange=function(){const val=this.value;if(val==='custom'){document.getElementById('customColor').style.display='inline-block';const c=document.getElementById('customColor').value;L.setItem('themeColor',c);applyThemeColor();}else{document.getElementById('customColor').style.display='none';L.setItem('themeColor',val);applyThemeColor();}};
+document.getElementById('customColor').oninput=function(){const c=this.value;document.getElementById('colorSelect').value='custom';L.setItem('themeColor',c);applyThemeColor()};
+document.onkeydown=e=>{if(e.key==='Escape'){closeDrawer();closeModal();closeNotice();closeSettings()}};
+document.getElementById('webmcBtn').onclick=e=>{e.preventDefault();window.open('https://7.mcjslink.144449.xyz/1.8.8wasm/','_blank');closeDrawer()};
+document.querySelectorAll('.dl-btn').forEach(b=>{b.onclick=function(e){e.preventDefault();const u=this.dataset.url;if(u)window.open(u,'_blank')}});
+applyLang();applyTheme();applyTransparent();applyMD1();applyWallpaper();
 })();
 </script>
 </body>
